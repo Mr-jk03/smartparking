@@ -1,0 +1,127 @@
+.wrapper-deposit{
+    height: auto;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+
+.dp-title-head{
+    height: 93px;
+    width: 100%;
+    border-radius: 11px;
+    background-color: #FFFBFB;
+    box-shadow: 0px 4px 4px var(--box-shadow);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.dp-title-head h1{
+    text-transform: capitalize;
+    font-family: var(--roboto);
+}
+
+.dp-body{
+    margin-top: 15px;
+}
+
+.note{
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    border-radius: 11px;
+    box-shadow: 2px 5px 9px var(--box-shadow);
+}
+
+.note h3{
+    text-transform: uppercase;
+}
+
+.note span{
+    display: inline-block;
+    height: auto;
+    width: 100%;
+    padding-left: 10px;
+    font-family: var(--roboto);
+}
+.alert-note{
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 20px;
+    color: rgb(242, 75, 4);
+}
+.alert-note span{
+    font-weight: bold;
+    color: red;
+}
+
+.select-denomination{
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 11px;
+    box-shadow: 2px 5px 9px var(--box-shadow);
+}
+
+.select-denomination h4{
+    font-family: var(--roboto);
+}
+.select-denomination span{
+    display: inline-block;
+}
+.dp-cart{
+    height: 32px;
+    width: 117px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: var(--roboto);
+    outline: none;
+    border: none;
+    margin: 5px;
+    border-radius: 4px;
+    background-color: #1D9FF1;
+    transition: 0.2s ease;
+    color: #fff;
+}
+.dp-cart:hover{
+    background-color: #0b87d4;
+}
+
+.fomr-transferred{
+    display: grid;
+}
+
+
+.btn-transferred{
+    height: 27px;
+    width: 132px;
+    border-radius: 5px;
+    background-color: #0B940B;
+    border: none;
+    outline: none;
+    font-family: var(--roboto);
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+}
+.btn-transferred:hover{
+    background-color: #057705;
+}
+
+.qr{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    border-radius: 11px;
+    border-left: 4px solid var(--box-shadow);
+    box-shadow: 4px 4px 5px var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.qr img{
+    height: auto;
+    width: 100%;
+}

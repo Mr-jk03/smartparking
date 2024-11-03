@@ -1,0 +1,71 @@
+
+.mototicket-cart{
+    height: 167px;
+    width: 358px;
+    border-radius: 12px;
+    background-color: #FF9257;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 0px;
+    font-family: var(--roboto);
+    color: aliceblue;
+    box-shadow: 3px 4px 4px var(--box-shadow);
+}
+
+.mototicket-cart-icon{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    color: #fff;
+}
+.mototicket-cart-content{
+    padding: 5px;
+    border-left: 3px solid #fff;
+}
+
+.mototicket-cart-content span{
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+}
+.detail-btn-buy{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.detail-btn-buy a{
+    font-family: var(--roboto);
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.detail-btn-buy button{
+    height: 30px;
+    width: 97px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    background-color: #DB5705;
+    color: #fff;
+    font-family: var(--roboto);
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0px 2px 4px var(--box-shadow);
+    transition: 0.2s ease;
+}
+
+.detail-btn-buy button:hover{
+    background-color: #eb5d04;
+    box-shadow: 0px 4px 4px var(--box-shadow);
+}

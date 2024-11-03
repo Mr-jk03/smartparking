@@ -1,0 +1,51 @@
+.wrapper-buyticket{
+    height: auto;
+    width: 100%;
+    padding: 5px 0px;
+}
+.menu-vehicle{
+    height: auto;
+    padding: 5px 7px;
+    border-radius: 5px;
+    box-shadow: 2px 4px 4px var(--box-shadow);
+}
+
+.menu-vehicle button{
+    height: 45px;
+    width: 100%;
+    position: relative;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 2px 0px;
+    border: none;
+    outline: none;
+    background-color: #52B8C8;
+    color: #fff;
+    font-family: var(--roboto);
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ticket-icon i{
+    position: absolute;
+    top: -9px;
+    left: -50px;
+    font-size: 40px;
+    transition: transform 0.4s ease;
+}
+
+.ticket-icon i.active{
+    transform: translateX(134px);
+}
+
+.body-vehicle{
+    height: auto;
+    width: 100%;
+    background-color: #B3E3D2;
+    border-radius: 6px;
+    padding: 5px;
+}
+
