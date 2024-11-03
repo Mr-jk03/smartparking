@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Mr-jk03/smartparking.git/static/css/main.67ac2a7f.css",
-    "main.js": "/Mr-jk03/smartparking.git/static/js/main.78f6698b.js",
-    "static/media/qr.png": "/Mr-jk03/smartparking.git/static/media/qr.e37263cd99103f66ac0c.png",
-    "static/media/logo.png": "/Mr-jk03/smartparking.git/static/media/logo.e88fa5edca9524ca1318.png",
-    "index.html": "/Mr-jk03/smartparking.git/index.html",
-    "main.67ac2a7f.css.map": "/Mr-jk03/smartparking.git/static/css/main.67ac2a7f.css.map",
-    "main.78f6698b.js.map": "/Mr-jk03/smartparking.git/static/js/main.78f6698b.js.map"
+    "main.css": "/smartparking/static/css/main.67ac2a7f.css",
+    "main.js": "/smartparking/static/js/main.f3a0ecab.js",
+    "static/media/qr.png": "/smartparking/static/media/qr.e37263cd99103f66ac0c.png",
+    "static/media/logo.png": "/smartparking/static/media/logo.e88fa5edca9524ca1318.png",
+    "index.html": "/smartparking/index.html",
+    "main.67ac2a7f.css.map": "/smartparking/static/css/main.67ac2a7f.css.map",
+    "main.f3a0ecab.js.map": "/smartparking/static/js/main.f3a0ecab.js.map"
   },
   "entrypoints": [
     "static/css/main.67ac2a7f.css",
-    "static/js/main.78f6698b.js"
+    "static/js/main.f3a0ecab.js"
   ]
 }
