@@ -1,7 +1,7 @@
 {
   "name": "smartparking",
   "version": "0.1.0",
-  "homepage": "https://github.com/Mr-jk03/smartparking.git",
+  "homepage": "https://Mr-jk03.github.io/smartparking",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
