@@ -5,11 +5,14 @@ import Footer from './components/Footer/Footer';
 import Body from './components/Body/Body';
 import Login from './components/LoginRegister/Login/Login';
 import Register from './components/LoginRegister/Register/Register';
+import BodyCon from './components/Body/BodyCon/BodyCon';
+import DetailTickets from './components/Body/BodyCon/DetailTickets/DetailTickets';
 import { useState } from 'react';
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   const handleLogin = () =>{
     setIsLoggedIn(true);
@@ -23,7 +26,11 @@ function App() {
       {isLoggedIn && <Header />}
       <Routes>
         {isLoggedIn ? (
-          <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
+          <>
+            <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
+            <Route path='/detail/:id' element={<Body onLogOut = {handleLogOut}/>}/>
+            {/* <Route path='/detail/:id' element={<DetailTickets />} /> */}
+          </>
         ) : (
           <>
             <Route path='/login' element={<Login onLogin={handleLogin} />} />

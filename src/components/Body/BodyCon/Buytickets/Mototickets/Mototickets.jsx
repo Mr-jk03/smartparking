@@ -1,18 +1,12 @@
 import React from 'react'
 import './Mototickets.css'
 import { Link } from 'react-router-dom';
+import { motoTicketData } from '../../../../DataLocal/TicketsData'
 
 import { FaMotorcycle } from "react-icons/fa6";
 
 
 const Mototickets = () => {
-
-    const motoTicketData = [
-        {id: 'XML', nameTicket: 'XML01', price: '6.000', duration: '1 giờ sau khi sử dụng', usage: 'Vô hạn'},
-        {id: 'XMN', nameTicket: 'XMN01', price: '6.000', duration: '1 ngày sau khi sử dụng', usage: 'Vô hạn'},
-        {id: 'XMT', nameTicket: 'XMT01', price: '6.000', duration: '7 ngày sau khi sử dụng', usage: 'Vô hạn'},
-        {id: 'XMTG', nameTicket: 'XMTG01', price: '6.000', duration: '30 ngày sau khi sử dụng', usage: 'Vô hạn'},
-    ]
 
     const lemitedMototicketdata = motoTicketData.slice(0, 4);
 
@@ -34,7 +28,7 @@ const Mototickets = () => {
                             <span>Số lần: {item.usage}</span>
 
                             <div className='detail-btn-buy'>
-                                <Link to=''>Chi tiết vé</Link>
+                                <Link to={`/detail/${item.id}`}>Chi tiết vé</Link>
                                 <button>Mua ngay</button>
                             </div>
                         </div>

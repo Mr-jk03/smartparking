@@ -1,0 +1,130 @@
+.wrapper-detail{
+    height: auto;
+    width: 100%;
+    padding: 10px 7px;
+}
+
+.info-address{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.info-address a{
+    color: #000;
+    font-family: var(--roboto);
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: none;
+}
+.info-adr-home::after{
+    content: '|';
+    margin: 0px 5px;
+}
+
+.info-ticket{
+    height: 593px;
+    width: 424px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #57A8BC;
+    box-shadow: 3px 4px 4px var(--box-shadow);
+    display: grid;
+    justify-content: center;
+}
+
+.info-ticket-type{
+    height: auto;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--roboto);
+    font-weight: bold;
+    color: #fff;
+    font-style: italic;
+}
+.container-info{
+    height: 459px;
+    width: 363px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 15px;
+}
+.container-info span{
+    height: 30px;
+    margin: 2px 0;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    font-family: var(--roboto);
+    font-size: 17px;
+    color: #000;
+}
+
+.note-ticket{
+    height: 168px;
+    width: 100%;
+    border-radius: 6px;
+    background-color: #D9D9D9;
+    outline: none;
+    padding: 7px;
+}
+.ft-info{
+    height: auto;
+    width: 100%;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-btn{
+    height: auto;
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.info-btn-buy{
+    height: 35px;
+    width: 100%;
+    border: 1px solid #129BFD;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #129BFD;
+    font-family: var(--roboto);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+    transition: 0.2s;
+}
+.info-btn-buy:hover{
+    background-color: #129BFD;
+    color: #fff;
+}
+
+.info-btn-addCart{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #129BFD;
+    color: #fff;
+    font-family: var(--roboto);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+    transition: 0.2s;
+    border: none;
+    outline: none;
+    font-size: 12px;
+}
+
+.info-btn-addCart i{
+    font-size: 19px;
+}

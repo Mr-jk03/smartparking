@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import './Home.css'
+import { data } from '../../../DataLocal/HomeData'
+import { dataDeposit } from '../../../DataLocal/HomeData'
+import { ticket_activity } from '../../../DataLocal/HomeData'
 
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend, Line } from 'recharts';
 
@@ -8,33 +11,6 @@ const Home = () => {
   const [bougth, setBougth] = useState(255);
   const [month, setMonth] = useState(255000);
   const [used, setUsed] = useState(15);
-
-  const data = [
-    { day: '2024-10-01', hour: 10, amount: 1500000 },
-    { day: '2024-10-01', hour: 15, amount: 3000000 },
-    { day: '2024-10-02', hour: 9, amount: 1200000 },
-    { day: '2024-10-02', hour: 14, amount: 5000000 },
-    { day: '2024-10-03', hour: 11, amount: 2500000 },
-  ];
-
-  const dataDeposit = [
-    { day: '2024-10-01', hour: '10:00', amount: 1500000 },
-    { day: '2024-10-01', hour: '15:00', amount: 3000000 },
-    { day: '2024-10-02', hour: '9:00', amount: 1200000 },
-    { day: '2024-10-02', hour: '16:00', amount: 5000000 },
-    { day: '2024-10-03', hour: '11:00', amount: 2500000 },
-  ]
-
-  
-
-
-  const ticket_activity = [
-    {day: '2024-10-01', hour_in: '10:00', hour_out: '12:00'},
-    {day: '2024-10-02', hour_in: '10:00', hour_out: '12:00'},
-    {day: '2024-10-03', hour_in: '10:00', hour_out: '12:00'},
-    {day: '2024-10-04', hour_in: '10:00', hour_out: '12:00'},
-    {day: '2024-10-05', hour_in: '10:00', hour_out: '12:00'},
-  ]
 
   const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
   const formatHour = (tick) => `${tick}h`;
