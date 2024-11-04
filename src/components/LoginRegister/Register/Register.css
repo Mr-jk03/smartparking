@@ -1,0 +1,126 @@
+.wrapper-register{
+    height: 100vh;
+    width: 100%;
+    background-color: #57A8BC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-register{
+    height: 593px;
+    width: 647px;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.register-header{
+    height: 102px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: var(--roboto);
+}
+
+.register-header img{
+    height: 100%;
+    width: auto;
+}
+.register-header span{
+    font-size: 40px;
+}
+
+.register-input{
+    height: 90px;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    position: relative;
+}
+
+.register-input input{
+    height: 40px;
+    width: 406px;
+    border-radius: 5px;
+    padding: 5px 5px 5px 40px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 4px 4px var(--box-shadow);
+}
+.register-input input::placeholder{
+    font-style: italic;
+}
+
+.register-icon{
+    position: absolute;
+    top: 9px;
+    left: 104px;
+    font-size: 20px;
+}
+
+.register-input span{
+    font-family: var(--roboto);
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.fogot{
+    margin-top: 5px;
+    height: auto;
+    width: 100%;
+    font-family: var(--roboto);
+    font-weight: bold;
+    color: #06b6eb;
+    font-size: 13px;
+    text-decoration: none;
+    font-style: italic;
+    display: inline-block;
+    text-align: end;
+    padding: 5px 80px;
+}
+
+.btn-register{
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.btn-register button{
+    height: 53px;
+    width: 284px;
+    border-radius: 8px;
+    background-color: #57A8BC;
+    color: #fff;
+    font-family: var(--roboto);
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+    box-shadow: 0px 4px 4px var(--box-shadow);
+    font-weight: bold;
+    font-size: 22px;
+    transition: 0.2s ease;
+}
+.btn-register button:hover{
+    background-color: #1b9dbe;
+    box-shadow: 0px 5px 4px var(--box-shadow);
+}
+
+.btn-register a{
+    height: auto;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    font-family: var(--roboto);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    color: #000;
+    margin-top: 10px;
+}

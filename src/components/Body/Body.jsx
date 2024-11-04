@@ -3,7 +3,7 @@ import './Body.css'
 import Menu from './Menu/Menu'
 import BodyCon from './BodyCon/BodyCon'
 
-const Body = () => {
+const Body = ({onLogOut}) => {
 
 
     const initialState = {activeComponent:"HOME"}
@@ -36,7 +36,7 @@ const Body = () => {
         <div className="container">
             <div className="row">
                 <div className='col-xl-2'>
-                    <Menu dispatch={dispatch}/>
+                    <Menu dispatch={dispatch} onLogOut={onLogOut}/>
                 </div>
                 <div className='col-xl-10'>
                     <BodyCon activeComponent={state.activeComponent} />

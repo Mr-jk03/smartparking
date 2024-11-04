@@ -7,14 +7,18 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { GiTicket } from "react-icons/gi";
 import { GiExitDoor } from "react-icons/gi";
 
-const Menu = ({dispatch}) => {
+const Menu = ({dispatch, onLogOut}) => {
    
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const handleLogOut = () =>{
+        onLogOut();
+    }
     
     const handleActive = (index, actionType) => {
         setActiveIndex(index);
         dispatch({type: actionType});
+
     };
     
     return (
@@ -62,8 +66,8 @@ const Menu = ({dispatch}) => {
                 <span>vé của tôi</span>
             </button>
             <button 
-                className={activeIndex === 6 ? 'active-btn-menu' : 'btn-menu'}
-                onClick={() => handleActive(6)}
+                className="btn-menu"
+                onClick={handleLogOut}
             >
                 <GiExitDoor />
                 <span>đăng xuất</span>
