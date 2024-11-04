@@ -30,7 +30,7 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
               <div className="info-ticket-type">
                 <h1>LOẠI VÉ</h1>
                 <span className="info-ticket-type">
-                  Vé Lượt
+                  {item.type}
                 </span>
               </div>
               <div className='container-info'>
