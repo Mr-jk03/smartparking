@@ -23,6 +23,25 @@
     margin: 0px 5px;
 }
 
+.dt-ticket{
+    height: 167px;
+    width: 358px;
+    border-radius: 12px;
+    background-color: #FF9257;
+    box-shadow: 3px 4px 4px var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 140px;
+    color: #fff;
+}
+
+
+
+
+
+
+
 .info-ticket{
     height: 593px;
     width: 424px;

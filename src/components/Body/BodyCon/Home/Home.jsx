@@ -4,7 +4,7 @@ import { data } from '../../../DataLocal/HomeData'
 import { dataDeposit } from '../../../DataLocal/HomeData'
 import { ticket_activity } from '../../../DataLocal/HomeData'
 
-import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend, Line } from 'recharts';
+import { ComposedChart, Area, Line, Scatter, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const Home = () => {
 
@@ -118,32 +118,48 @@ const Home = () => {
           </div>
           <div className="row">
             <div className="col-xl-12 chars">
-                <ScatterChart 
-                  width={1000}
-                  height={400}
-                  margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                >
-                  <CartesianGrid />
-                  <XAxis 
-                    dataKey="day" 
-                    name="Ngày nạp" 
-                    tickFormatter={formatDay} 
-                  />
-                  <YAxis 
-                    dataKey="hour" 
-                    name="Giờ nạp" 
-                    tickFormatter={formatHour} 
-                  />
-                  <ZAxis 
-                    dataKey="amount" 
-                    range={[100, 500]} 
-                    name="Số tiền (VND)" 
-                    unit="đ" 
-                  />
-                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                  <Legend />
-                  <Scatter name="Giao dịch nạp tiền" data={data} fill="#8884d8" />
-                </ScatterChart>
+            <ComposedChart
+              width={1000}
+              height={400}
+              data={data}
+              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              
+              {/* Trục X cho ngày */}
+              <XAxis 
+                dataKey="day" 
+                name="Ngày nạp" 
+                tickFormatter={formatDay} 
+              />
+
+              {/* Trục Y cho số tiền */}
+              <YAxis 
+                dataKey="amount" 
+                name="Số tiền (VND)" 
+                unit="đ" 
+              />
+
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Legend />
+
+              {/* Biểu đồ Line cho Số tiền */}
+              <Line 
+                type="monotone" 
+                dataKey="amount" 
+                name="Số tiền (VND)" 
+                stroke="#8884d8" 
+              />
+              
+              {/* Scatter để thể hiện từng điểm nạp tiền với giờ khác nhau */}
+              <Scatter 
+                dataKey="hour" 
+                name="Giờ nạp" 
+                fill="#82ca9d" 
+                shape="circle"
+              />
+
+            </ComposedChart>
             </div>
           </div>
     </div>

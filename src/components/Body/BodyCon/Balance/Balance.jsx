@@ -1,6 +1,7 @@
 import React from 'react'
 import './Balance.css'
 import { useState } from 'react';
+import { BalanceData } from '../../../DataLocal/BalanceData';
 
 const Balance = () => {
   const [selectedTransaction, setSelectedTransaction] = useState('all');
@@ -8,6 +9,10 @@ const Balance = () => {
   const handleTransactionChange = (event) => {
     setSelectedTransaction(event.target.value);
   };
+
+  const limitedBalanceData = BalanceData.slice(0, 10);
+
+
 
   return (
     <div className='wrapper-banlance'>
@@ -81,24 +86,21 @@ const Balance = () => {
               <div className="col-xl-12 balance-table">
                 <div className="container">
                   <div className="row balance-table-th">
+                    <div className="col-xl-1 balance-th">STT</div>
                     <div className="col-xl-3 balance-th">Thời gian</div>
-                    <div className="col-xl-3 balance-th">Số tiền</div>
+                    <div className="col-xl-2 balance-th">Số tiền</div>
                     <div className="col-xl-3 balance-th">Cộng / Trừ tiền</div>
                     <div className="col-xl-3 balance-th">Nội dung</div>
                   </div>
-
-                  <div className="row balance-table-td">
-                    <div className="col-xl-3 balance-td">25.10.2014</div>
-                    <div className="col-xl-3 balance-td">10.000</div>
-                    <div className="col-xl-3 balance-td">+ 10.000</div>
-                    <div className="col-xl-3 balance-td">abcxyz</div>
-                  </div>
-                  <div className="row balance-table-td">
-                    <div className="col-xl-3 balance-td">25.10.2014</div>
-                    <div className="col-xl-3 balance-td">10.000</div>
-                    <div className="col-xl-3 balance-td">- 6.000</div>
-                    <div className="col-xl-3 balance-td">abcxyz</div>
-                  </div>
+                  {limitedBalanceData.map((item) =>
+                    <div className="row balance-table-td">
+                      <div className="col-xl-1 balance-td">{item.stt}</div>
+                      <div className="col-xl-3 balance-td">{item.day}</div>
+                      <div className="col-xl-2 balance-td">{item.amount.toLocaleString('vi-VN')}</div>
+                      <div className="col-xl-3 balance-td">{item.sttamount.toLocaleString('vi-VN')}</div>
+                      <div className="col-xl-3 balance-td">{item.content}</div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

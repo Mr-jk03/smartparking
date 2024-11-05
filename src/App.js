@@ -5,13 +5,11 @@ import Footer from './components/Footer/Footer';
 import Body from './components/Body/Body';
 import Login from './components/LoginRegister/Login/Login';
 import Register from './components/LoginRegister/Register/Register';
-import BodyCon from './components/Body/BodyCon/BodyCon';
-import DetailTickets from './components/Body/BodyCon/DetailTickets/DetailTickets';
 import { useState } from 'react';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 
   const handleLogin = () =>{

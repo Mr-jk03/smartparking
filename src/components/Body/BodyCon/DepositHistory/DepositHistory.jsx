@@ -6,10 +6,24 @@ import { FaEye } from "react-icons/fa";
 import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData"
 
 const DepositHistory = () => {
+
+  const totalLoaded = deponsitHistory
+    .filter((item) => item.statusClass === 'success')
+    .reduce((total, item) => total + item.amount, 0)
   
-  const [loaded, setLoaded] = useState((1200000).toLocaleString('vi-VN'))
-  const [successfully, setSuccessfully] = useState((1200000).toLocaleString('vi-VN'))
-  const [pending, setPending] = useState((1200000).toLocaleString('vi-VN'))
+  const totalSuccess = deponsitHistory
+    .filter((item) => item.statusClass === 'dp-history-loaded')
+    .reduce((total, item) => total + item.amount, 0)
+  
+  const totalPending = deponsitHistory
+    .filter((item) => item.statusClass === 'pending')
+    .reduce((total, item) => total + item.amount, 0)
+
+
+  
+  const [loaded, setLoaded] = useState(totalLoaded.toLocaleString('vi-VN'))
+  const [successfully, setSuccessfully] = useState(totalSuccess.toLocaleString('vi-VN'))
+  const [pending, setPending] = useState(totalPending.toLocaleString('vi-VN'))
 
   const [filterStatus, setFilterStatus] = useState('');
 
@@ -101,7 +115,7 @@ const DepositHistory = () => {
                             <span>{item.date}</span>
                           </div>
                           <div className="col-xl-2 dps-history-td">
-                            <span>{item.amount}</span>
+                            <span>{item.amount.toLocaleString('vi-VN')}</span>
                           </div>
                           <div className="col-xl-3 dps-history-td">
                             <span className={item.statusClass}>{item.status}</span>

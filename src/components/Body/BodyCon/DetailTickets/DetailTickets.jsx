@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom'
 import { FaCartPlus } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+import { FaMotorcycle } from "react-icons/fa6";
+import { FaCarSide } from "react-icons/fa";
+
 
 const DetailTickets = ({selectedTicket, dispatch}) => {
 
@@ -23,6 +26,17 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
             <div className='info-address'>
               <Link to={'/'} className='info-adr-home' onClick={() => dispatch({ type: 'HOME' })}>Trang chủ</Link>
               <Link>Chi tiết vé</Link>
+            </div>
+            <div className="container">
+              <div className="row">
+                <div className="col-xl-12">
+                  <div className="dt-ticket">
+                    {item.vehical === 'Moto' ? (<FaMotorcycle />):
+                      item.vehical === 'Car' ? (<FaCarSide />): null
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="col-xl-6">

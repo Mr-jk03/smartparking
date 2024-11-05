@@ -5,7 +5,12 @@ import  QR  from '../../../Images/qr.png'
 
 
 const Deposit = () => {
-  const [deposit, setDeposit] = useState((50000).toLocaleString('vi-VN'))
+  const [deposit, setDeposit] = useState()
+
+  const handleChooseAmount = (amount) =>{
+    setDeposit(amount.toLocaleString('vi-VN'))
+  }
+
   return (
     <div className='wrapper-deposit'>
         <div className='container'>
@@ -34,11 +39,11 @@ const Deposit = () => {
                     </div>
                     <div className="select-denomination">
                       <h4>Chọn mệnh giá</h4>
-                      <button className='dp-cart'>10.000</button>
-                      <button className='dp-cart'>20.000</button>
-                      <button className='dp-cart'>50.000</button>
-                      <button className='dp-cart'>100.000</button>
-                      <button className='dp-cart'>500.000</button>
+                      <button className='dp-cart' onClick={() =>handleChooseAmount(10000)}>10.000</button>
+                      <button className='dp-cart' onClick={() =>handleChooseAmount(20000)}>20.000</button>
+                      <button className='dp-cart' onClick={() =>handleChooseAmount(50000)}>50.000</button>
+                      <button className='dp-cart' onClick={() =>handleChooseAmount(100000)}>100.000</button>
+                      <button className='dp-cart' onClick={() =>handleChooseAmount(500000)}>500.000</button>
                       <div className='fomr-transferred'>
                         <span>Số tiền nạp: {deposit}</span>
                         <button className='btn-transferred'>Đã chuyển khoản</button>
