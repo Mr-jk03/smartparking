@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/smartparking/static/css/main.98d436fe.css",
-    "main.js": "/smartparking/static/js/main.9b85f5d8.js",
+    "main.css": "/smartparking/static/css/main.bc068610.css",
+    "main.js": "/smartparking/static/js/main.ed981cab.js",
     "static/media/qr.png": "/smartparking/static/media/qr.e37263cd99103f66ac0c.png",
     "static/media/logo.png": "/smartparking/static/media/logo.e88fa5edca9524ca1318.png",
     "index.html": "/smartparking/index.html",
-    "main.98d436fe.css.map": "/smartparking/static/css/main.98d436fe.css.map",
-    "main.9b85f5d8.js.map": "/smartparking/static/js/main.9b85f5d8.js.map"
+    "main.bc068610.css.map": "/smartparking/static/css/main.bc068610.css.map",
+    "main.ed981cab.js.map": "/smartparking/static/js/main.ed981cab.js.map"
   },
   "entrypoints": [
-    "static/css/main.98d436fe.css",
-    "static/js/main.9b85f5d8.js"
+    "static/css/main.bc068610.css",
+    "static/js/main.ed981cab.js"
   ]
 }
