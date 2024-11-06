@@ -35,28 +35,38 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.main-input{
     position: relative;
 }
-.input-hd input{
+
+.main-input input{
     height: 40px;
     width: 290px;
     border-radius: 10px;
     background-color: #F1E6E6;
     outline: none;
     border: none;
-    padding: 6px 20px 7px 20px;
+    padding: 6px 47px 7px 48px;
     font-size: 25px;
     font-weight: bold;
     font-family: var(--roboto);
     box-shadow: 0px 4px 4px #00000081;
 }
-.input-hd span{
+.main-input span{
     position: absolute;
-    top: 25px;
+    top: 2px;
     right: 35px;
     font-size: 25px;
     font-family: var(--roboto);
     font-weight: bold;
+}
+.wallet{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 30px;
 }
 
 
@@ -67,17 +77,18 @@
     padding: 0px 80px;
 }
 
-.hd-ritgh i{
+.hd-ritgh a{
     height: 42px;
     width: 42px;
     border-radius: 50px;
     background-color: #fff;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
 }
-/* .hd-ritgh .i-chil2{
+.hd-ritgh .i-chil2{
     height: 42px;
     width: 42px;
     border-radius: 50px;
@@ -86,4 +97,4 @@
     justify-content: center;
     align-items: center;
     font-size: 30px;
-} */
+}

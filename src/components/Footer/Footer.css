@@ -55,3 +55,40 @@
     text-align: start;
     color: #fff;
 }
+.facebook{
+    height: 32px;
+    width: 32px;
+    padding: 5px;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: rgb(9, 121, 234);
+}
+.zalo{
+    height: 32px;
+    width: 32px;
+    background-color: rgb(9, 121, 234);
+    padding: 5px;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 2px;
+}
+
+
+.ig{
+    font-size: 35px;
+    border-radius: 5px;
+    color: #fff;
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+
+.qr-footer{
+    font-size: 150px;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}

@@ -4,6 +4,7 @@ import Logo from '../Images/logo.png'
 import { FaCircleUser } from "react-icons/fa6";
 import { IoNotificationsCircle } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
+import { FaWallet } from "react-icons/fa6";
 import {Link} from 'react-router-dom';
 
 
@@ -27,23 +28,26 @@ const Header = () => {
                     </span>
                 </div>
                 <div className='col-xl-6 col-lg-6 col-md-6 input-hd'>
-                    <input type="text" 
-                        value={inputValues}
-                        onChange={e => setInputValues(e.target.value)}
-                        readOnly
-                    />
-                    <span>VND</span>
+                    <div className='main-input'>
+                        <FaWallet  className='wallet'/>
+                        <input type="text" 
+                            value={inputValues}
+                            onChange={e => setInputValues(e.target.value)}
+                            readOnly
+                        />
+                        <span>VND</span>
+                    </div>
                 </div>
                 <div className='col-xl-3 col-lg-1 col-md-1 hd-ritgh'>
-                    <i>
+                    <Link>
                         <FaCircleUser />
-                    </i>
-                    <i className='i-chil2'>
+                    </Link>
+                    <Link className='i-chil2'>
                         <IoNotificationsCircle />
-                    </i>
-                    <i>
+                    </Link>
+                    <Link to={'/cart'}>
                         <FaCartShopping />
-                    </i>
+                    </Link>
                 </div>
             </div>
         </div>

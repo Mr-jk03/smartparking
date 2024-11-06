@@ -1,5 +1,9 @@
 import React from 'react'
 import './Footer.css'
+import { FaFacebookSquare } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
+import { FaSquareInstagram } from "react-icons/fa6";
+import { BsQrCode } from "react-icons/bs";
 
 
 const Footer = () => {
@@ -27,11 +31,24 @@ const Footer = () => {
           <div className="col-xl-3">
             <div className='addr'>
                 <p>Kết nối MXH</p>
+                <span>
+                  <FaFacebookSquare className='facebook'/> Facebook
+                </span>
+                <span>
+                  <SiZalo className='zalo'/> Zalo
+                </span>
+                <span>
+                  <FaSquareInstagram className='ig'/> Instagram
+                </span>
+
             </div>
           </div>
           <div className="col-xl-3">
             <div className="addr">
                 <p>Tải app quyét ngay</p>
+                <div className='qr-footer'>
+                  <BsQrCode />
+                </div>
             </div>
           </div>
         </div>

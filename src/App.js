@@ -5,11 +5,12 @@ import Footer from './components/Footer/Footer';
 import Body from './components/Body/Body';
 import Login from './components/LoginRegister/Login/Login';
 import Register from './components/LoginRegister/Register/Register';
+import Cart from './components/Cart/Cart';
 import { useState } from 'react';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 
   const handleLogin = () =>{
@@ -27,6 +28,7 @@ function App() {
           <>
             <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
             <Route path='/detail/:id' element={<Body onLogOut = {handleLogOut}/>}/>
+            <Route path='/cart' element={<Cart />}/>
           </>
         ) : (
           <>
