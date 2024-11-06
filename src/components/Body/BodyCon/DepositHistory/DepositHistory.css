@@ -119,14 +119,22 @@
 
 
 .table-body{
-    height: auto;
+    height: 450px;
     width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
     padding: 5px 7px;
     margin-top: 5px;
     background-color: #fff;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
 }
+
+.table-body::-webkit-scrollbar{
+    display: none;
+}
+
 
 .mg-row{
     padding: 5px 0px;

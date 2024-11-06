@@ -2,6 +2,7 @@
     height: auto;
     width: 100%;
     padding: 5px 7px;
+    position: relative;
 }
 .myticket-title{
     height: 100%;
@@ -92,12 +93,22 @@
     align-items: center;
 }
 .mytk-table-tr{
-    height: auto;
+    height: 375px;
     width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
     background-color: #fff;
     font-family: var(--roboto);
     margin-top: 3px;
 }
+
+.mytk-table-tr::-webkit-scrollbar{
+    display: none;
+}
+
+
+
 .mytk-row{
     margin: 3px 0px;
     padding: 5px 0px;
@@ -121,4 +132,51 @@
 .mytk-btn-active button:hover{
     color: #fff;
     background-color: #1799eb;
+}
+
+.popup-qr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    height: 50%;
+    width: 100%;
+    background-color: #bebcbc65;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+    transform: translateY(-100%);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.popup-qr.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.myticket-qr {
+    height: 220px;
+    width: 220px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 2px;
+    position: relative;
+}
+
+.myticket-qr button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff5e5e;
+    border: none;
+    color: white;
+    border-radius: 5%;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.myticket-qr img {
+    height: auto;
+    width: 100%;
 }

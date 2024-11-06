@@ -27,9 +27,9 @@ const DepositHistory = () => {
 
   const [filterStatus, setFilterStatus] = useState('');
 
-  const lemitedDeponsitHistory = deponsitHistory.slice(0, 10);
+  // const lemitedDeponsitHistory = deponsitHistory.slice(0, 10);
 
-  const filterDeponsitHistory = lemitedDeponsitHistory.filter(item =>
+  const filterDeponsitHistory = deponsitHistory.filter(item =>
     item.status.toLowerCase().includes(filterStatus.toLowerCase())
   )
 
