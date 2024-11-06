@@ -1,0 +1,124 @@
+.wrapper-myticket{
+    height: auto;
+    width: 100%;
+    padding: 5px 7px;
+}
+.myticket-title{
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 4px;
+    font-family: var(--roboto);
+    box-shadow: 0px 2px 4px var(--box-shadow);
+}
+
+.myticket-content{
+    height: auto;
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px var(--box-shadow);
+}
+.mytk-input,
+.mytk-filter{
+    height: 40px;
+    width: 100%;
+    margin: 2px 0;
+}
+
+.mytk-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mytk-input input{
+    height: 35px;
+    width: 335px;
+    border-radius: 4px;
+    box-shadow: 0px 3px 4px var(--box-shadow);
+    border: none;
+    outline: none;
+    padding: 2px 10px;
+}
+.mytk-input input::placeholder{
+    color: #B4AFAF;
+    font-style: italic;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.mytk-filter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.mytk-filter select{
+    height: 29px;
+    width: 163px;
+    background-color: #F9F8F8;
+    color: #000;
+    font-family: var(--roboto);
+    font-style: italic;
+    border-radius: 3px;
+    margin: 0px 7px;
+    border: none;
+    box-shadow: 0px 3px 4px var(--box-shadow);
+    outline: none;
+}
+.mytk-table{
+    height: auto;
+    width: 100%;
+    padding: 5px;
+    background-color: #E6E5E5;
+    border-radius: 4px;
+    margin-top: 2px;
+}
+.mytk-table-th{
+    height: 40px;
+    width: 100%;
+    background-color: #fff;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-family: var(--roboto);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mytk-table-tr{
+    height: auto;
+    width: 100%;
+    background-color: #fff;
+    font-family: var(--roboto);
+    margin-top: 3px;
+}
+.mytk-row{
+    margin: 3px 0px;
+    padding: 5px 0px;
+    border-bottom: 1px solid;
+}
+
+.mytk-btn-active{
+    gap: 7px;
+}
+.mytk-btn-active button{
+    height: 100%;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 4px;
+    transition: 0.2s ease;
+}
+
+.mytk-btn-active button:hover{
+    color: #fff;
+    background-color: #1799eb;
+}

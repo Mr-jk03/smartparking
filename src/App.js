@@ -27,7 +27,6 @@ function App() {
           <>
             <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
             <Route path='/detail/:id' element={<Body onLogOut = {handleLogOut}/>}/>
-            {/* <Route path='/detail/:id' element={<DetailTickets />} /> */}
           </>
         ) : (
           <>
