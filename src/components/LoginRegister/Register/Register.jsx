@@ -31,7 +31,7 @@ const Register = () => {
                                 </div>
                                 <div className="register-input">
                                     <div className='ip-relative'>
-                                        <input type="text" placeholder='Mật khẩu...'/>
+                                        <input type="password" placeholder='Mật khẩu...' maxLength={16}/>
                                         <i className='register-icon'>
                                             <FaLock />
                                         </i>
@@ -40,7 +40,7 @@ const Register = () => {
                                 </div>
                                 <div className="register-input">
                                     <div className='ip-relative'>
-                                        <input type="text" placeholder='Xác nhận mật khẩu...'/>
+                                        <input type="password" placeholder='Xác nhận mật khẩu...' maxLength={16}/>
                                         <i className='register-icon'>
                                             <FaLock />
                                         </i>

@@ -63,6 +63,7 @@ const Login = ({ onLogin }) => {
                                                         value={password}
                                                         onChange={e => setPassword(e.target.value)}
                                                         required
+                                                        maxLength={16}
                                                     />
                                                     <i className='login-icon'>
                                                         <FaLock />
