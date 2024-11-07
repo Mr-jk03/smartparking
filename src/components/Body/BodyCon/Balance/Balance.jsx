@@ -86,19 +86,19 @@ const Balance = () => {
               <div className="col-xl-12 balance-table">
                 <div className="container">
                   <div className="row balance-table-th">
-                    <div className="col-xl-1 balance-th">STT</div>
-                    <div className="col-xl-3 balance-th">Thời gian</div>
-                    <div className="col-xl-2 balance-th">Số tiền</div>
-                    <div className="col-xl-3 balance-th">Cộng / Trừ tiền</div>
-                    <div className="col-xl-3 balance-th">Nội dung</div>
+                    <div className="col-xl-1 col-lg-1 col-md-1 balance-th">STT</div>
+                    <div className="col-xl-3 col-lg-3 col-md-3 balance-th">Thời gian</div>
+                    <div className="col-xl-2 col-lg-2 col-md-2 balance-th">Số tiền</div>
+                    <div className="col-xl-3 col-lg-3 col-md-3 balance-th">Cộng / Trừ tiền</div>
+                    <div className="col-xl-3 col-lg-3 col-md-3 balance-th">Nội dung</div>
                   </div>
                   {limitedBalanceData.map((item) =>
                     <div className="row balance-table-td">
-                      <div className="col-xl-1 balance-td">{item.stt}</div>
-                      <div className="col-xl-3 balance-td">{item.day}</div>
-                      <div className="col-xl-2 balance-td">{item.amount.toLocaleString('vi-VN')}</div>
-                      <div className="col-xl-3 balance-td">{item.sttamount.toLocaleString('vi-VN')}</div>
-                      <div className="col-xl-3 balance-td">{item.content}</div>
+                      <div className="col-xl-1 col-lg-1 col-md-1 balance-td">{item.stt}</div>
+                      <div className="col-xl-3 col-lg-3 col-md-3 balance-td">{item.day}</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 balance-td">{item.amount.toLocaleString('vi-VN')}</div>
+                      <div className="col-xl-3 col-lg-3 col-md-3 balance-td">{item.sttamount.toLocaleString('vi-VN')}</div>
+                      <div className="col-xl-3 col-lg-3 col-md-3 balance-td">{item.content}</div>
                     </div>
                   )}
                 </div>

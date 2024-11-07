@@ -38,16 +38,18 @@ const Header = () => {
                         <span>VND</span>
                     </div>
                 </div>
-                <div className='col-xl-3 col-lg-1 col-md-1 hd-ritgh'>
-                    <Link>
-                        <FaCircleUser />
-                    </Link>
-                    <Link className='i-chil2'>
-                        <IoNotificationsCircle />
-                    </Link>
-                    <Link to={'/cart'}>
-                        <FaCartShopping />
-                    </Link>
+                <div className='col-xl-3 col-lg-3 col-md-3 box-right'>
+                    <div className='hd-ritgh'>
+                        <Link>
+                            <FaCircleUser />
+                        </Link>
+                        <Link className='i-chil2'>
+                            <IoNotificationsCircle />
+                        </Link>
+                        <Link to={'/cart'}>
+                            <FaCartShopping />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ const Buytickets = () => {
     <div className='wrapper-buyticket'>
         <div className="container">
           <div className="row">
-            <div className="col-xl-2">
+            <div className="col-xl-2 col-lg-2 col-md-2">
               <div className="menu-vehicle">
                 <button className='ticket-icon'
                   onClick={handleActiveMoto}
@@ -52,7 +52,7 @@ const Buytickets = () => {
                 </button>
               </div>
             </div>
-            <div className="col-xl-10">
+            <div className="col-xl-10 col-lg-10 col-md-10">
               <div className="body-vehicle">
                   {formType === 'moto' && <Mototickets />}
                   {formType === 'car' && <Cartickets />}

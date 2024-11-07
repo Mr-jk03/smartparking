@@ -49,3 +49,23 @@
     padding: 5px;
 }
 
+@media screen and (max-width: 991px) {
+    .ticket-icon{
+        font-size: 12px;
+    }
+    .ticket-icon:hover{
+        background-color: #0c6a79;
+    }
+    .ticket-icon i{
+        display: none;
+    }
+}
+@media screen and (max-width: 1168px) {
+    .ticket-icon:hover{
+        background-color: #0c6a79;
+    }
+    .ticket-icon i{
+        display: none;
+    }
+}
+

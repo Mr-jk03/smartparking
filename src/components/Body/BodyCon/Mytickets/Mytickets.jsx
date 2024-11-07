@@ -4,6 +4,7 @@ import { myticketData } from '../../../DataLocal/MyticketData';
 import { FaEye } from "react-icons/fa";
 import { IoQrCodeSharp } from "react-icons/io5";
 import QR from '../../../Images/qr.png';
+import { FaWindowClose } from "react-icons/fa";
 
 const Mytickets = () => {
   // const limittedMyticketData = myticketData.slice(0, 10);
@@ -59,13 +60,13 @@ const Mytickets = () => {
                 <div className="mytk-table-th">
                   <div className="container">
                     <div className="row">
-                      <div className="col-xl-1 d-flex justify-content-center align-items-center">STT</div>
-                      <div className="col-xl-2 d-flex justify-content-center align-items-center">Mã vé</div>
-                      <div className="col-xl-1 d-flex justify-content-center align-items-center">Tên vé</div>
-                      <div className="col-xl-2 d-flex justify-content-center align-items-center">Loại vé</div>
-                      <div className="col-xl-2 d-flex justify-content-center align-items-center">Loại phương tiện</div>
-                      <div className="col-xl-2 d-flex justify-content-center align-items-center">Trạng thái vé</div>
-                      <div className="col-xl-2 d-flex justify-content-center align-items-center">Thao tác</div>
+                      <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">STT</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Mã vé</div>
+                      <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">Tên vé</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Loại vé</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Loại phương tiện</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Trạng thái vé</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Thao tác</div>
                     </div>
                   </div>
                 </div>
@@ -74,13 +75,13 @@ const Mytickets = () => {
                   {filterTickets.map((item, index) =>
                     <div className="container mytk-row" key={index}>
                       <div className="row">
-                        <div className="col-xl-1 d-flex justify-content-center align-items-center">{item.stt}</div>
-                        <div className="col-xl-2 d-flex justify-content-center align-items-center">{item.code}</div>
-                        <div className="col-xl-1 d-flex justify-content-center align-items-center">{item.nameTicket}</div>
-                        <div className="col-xl-2 d-flex justify-content-center align-items-center">{item.type}</div>
-                        <div className="col-xl-2 d-flex justify-content-center align-items-center">{item.vehical}</div>
-                        <div className="col-xl-2 d-flex justify-content-center align-items-center">{item.status}</div>
-                        <div className="col-xl-2 d-flex justify-content-center align-items-center mytk-btn-active">
+                        <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">{item.stt}</div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.code}</div>
+                        <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">{item.nameTicket}</div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.type}</div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.vehical}</div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.status}</div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center mytk-btn-active">
                           <button>
                             <FaEye />
                           </button>
@@ -101,7 +102,9 @@ const Mytickets = () => {
       {isVisible && selectedTicketIndex !== null && (
         <div className={`popup-qr slide-in`}>
           <div className='myticket-qr'>
-            <button onClick={handleCloseQR}>Close</button>
+            <button onClick={handleCloseQR}>
+              <FaWindowClose />
+            </button>
             <img src={QR} alt="QR Code" />
             <p>{filterTickets[selectedTicketIndex].code}</p>
           </div>

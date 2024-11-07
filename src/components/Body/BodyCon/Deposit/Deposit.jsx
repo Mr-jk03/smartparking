@@ -15,13 +15,13 @@ const Deposit = () => {
     <div className='wrapper-deposit'>
         <div className='container'>
           <div className="row">
-            <div className="col-xl-12 dp-title-head">
+            <div className="col-xl-12 col-lg-12 col-md-12 dp-title-head">
                 <h1>nạp tiền</h1>
             </div>
-            <div className="col-xl-12 dp-body">
+            <div className="col-xl-12 col-lg-12 col-md-12 dp-body">
               <div className="container">
                 <div className="row">
-                  <div className="col-xl-7">
+                  <div className="col-xl-7 col-lg-7 col-md-7">
                     <div className="note">
                       <h3>hướng dẫn</h3>
                       <span>Bước 1: Chọn mệnh giá nạp</span>
@@ -51,7 +51,7 @@ const Deposit = () => {
                     </div>
 
                   </div>
-                  <div className="col-xl-5">
+                  <div className="col-xl-5 col-lg-5 col-md-5">
                     <div className='qr'>
                         <img src={QR} alt="qr" />
                     </div>

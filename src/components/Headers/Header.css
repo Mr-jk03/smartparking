@@ -12,6 +12,11 @@
     border-bottom-right-radius: 10px;
     z-index: 9999;
 }
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .logo a img{
     height: auto;
@@ -69,12 +74,19 @@
     font-size: 30px;
 }
 
+.box-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .hd-ritgh{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 0px 80px;
+    height: auto;
+    width: 156px;
+    padding: 0px 5px;
 }
 
 .hd-ritgh a{
@@ -97,4 +109,12 @@
     justify-content: center;
     align-items: center;
     font-size: 30px;
+}
+
+
+@media screen and (max-width: 991px) {
+    .logo a img{
+        height: 63px;
+        width: 64px;
+    }
 }

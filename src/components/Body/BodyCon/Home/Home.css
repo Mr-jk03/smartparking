@@ -101,3 +101,17 @@
 .chars{
     padding: 20px 5px;
 }
+
+
+
+@media screen and (max-width: 991px) {
+    .home-header{
+        padding: 5px;
+    }
+    .home-value{
+        font-size: 19px;
+    }
+    .title{
+        font-size: 14px;
+    }
+}

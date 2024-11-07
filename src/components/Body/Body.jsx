@@ -45,10 +45,10 @@ const Body = ({onLogOut}) => {
     <div className='body-wraaper'>
         <div className="container">
             <div className="row">
-                <div className='col-xl-2'>
+                <div className='col-xl-2 col-lg-2 col-md-2'>
                     <Menu dispatch={dispatch} onLogOut={onLogOut}/>
                 </div>
-                <div className='col-xl-10'>
+                <div className='col-xl-10 col-lg-10 col-md-10'>
                     <BodyCon activeComponent={state.activeComponent} selectedTicketId={state.selectedTicketID} dispatch={dispatch}/>
                 </div>
             </div>

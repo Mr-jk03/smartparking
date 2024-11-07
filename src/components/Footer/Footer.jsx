@@ -11,14 +11,14 @@ const Footer = () => {
     <div className='wrapper-footer'>
       <div className="container">
         <div className="row">
-          <div className="col-xl-3">
+          <div className="col-xl-3 col-lg-3 col-md-3">
             <div className='ttlh'>
               <p>thông tin liên hệ</p>
               <span>Liên hệ CSKH: 0365 555 555</span>
               <span>Email: nguyenvana@gmail.com</span>
             </div>
           </div>
-          <div className="col-xl-3">
+          <div className="col-xl-3 col-lg-3 col-md-3">
             <div className="addr">
                 <p>địa chỉ</p>
                 <span>73 Lý Tự Trọng, Quận 1, Tp. HCM</span>
@@ -28,7 +28,7 @@ const Footer = () => {
                 <span>371 Lê Duẩn, Quận Thanh Khê, Đà Nẵng</span>
             </div>
           </div>
-          <div className="col-xl-3">
+          <div className="col-xl-3 col-lg-3 col-md-3">
             <div className='addr'>
                 <p>Kết nối MXH</p>
                 <span>
@@ -43,7 +43,7 @@ const Footer = () => {
 
             </div>
           </div>
-          <div className="col-xl-3">
+          <div className="col-xl-3 col-lg-3 col-md-3">
             <div className="addr">
                 <p>Tải app quyét ngay</p>
                 <div className='qr-footer'>
