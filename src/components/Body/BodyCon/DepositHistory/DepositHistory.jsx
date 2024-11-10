@@ -1,37 +1,34 @@
-import React from 'react'
-import './DepositHistory.css'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import './DepositHistory.css';
 import { IoIosSearch } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
-import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData"
+import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
 
 const DepositHistory = () => {
-
   const totalLoaded = deponsitHistory
     .filter((item) => item.statusClass === 'success')
-    .reduce((total, item) => total + item.amount, 0)
+    .reduce((total, item) => total + item.amount, 0);
   
   const totalSuccess = deponsitHistory
     .filter((item) => item.statusClass === 'dp-history-loaded')
-    .reduce((total, item) => total + item.amount, 0)
+    .reduce((total, item) => total + item.amount, 0);
   
   const totalPending = deponsitHistory
     .filter((item) => item.statusClass === 'pending')
-    .reduce((total, item) => total + item.amount, 0)
+    .reduce((total, item) => total + item.amount, 0);
 
-
-  
-  const [loaded, setLoaded] = useState(totalLoaded.toLocaleString('vi-VN'))
-  const [successfully, setSuccessfully] = useState(totalSuccess.toLocaleString('vi-VN'))
-  const [pending, setPending] = useState(totalPending.toLocaleString('vi-VN'))
+  const [loaded] = useState(totalLoaded.toLocaleString('vi-VN'));
+  const [successfully] = useState(totalSuccess.toLocaleString('vi-VN'));
+  const [pending] = useState(totalPending.toLocaleString('vi-VN'));
 
   const [filterStatus, setFilterStatus] = useState('');
+  const [filterDate, setFilterDate] = useState('');
 
-  // const lemitedDeponsitHistory = deponsitHistory.slice(0, 10);
-
+  // Lọc dữ liệu theo trạng thái và ngày
   const filterDeponsitHistory = deponsitHistory.filter(item =>
-    item.status.toLowerCase().includes(filterStatus.toLowerCase())
-  )
+    item.status.toLowerCase().includes(filterStatus.toLowerCase()) &&
+    (!filterDate || item.date === filterDate.split('-').reverse().join('-')) // đổi định dạng ngày để so sánh
+  );
 
   return (
     <div className='wrapper-dp-history'>
@@ -65,15 +62,21 @@ const DepositHistory = () => {
             <div className="container">
               <div className="row">
                 <div className='filter-1'>
-                  <input type="date"/>
-                  <button>
+                  <input 
+                    type="date" 
+                    value={filterDate} 
+                    onChange={e => setFilterDate(e.target.value)} 
+                  />
+                  {/* <button>
                     <IoIosSearch />
-                  </button>
+                  </button> */}
                 </div>
                 <div className='filter-1'>
-                  <input type="text" placeholder='Trạng thái'
+                  <input 
+                    type="text" 
+                    placeholder='Trạng thái'
                     value={filterStatus}
-                    onChange={e =>{setFilterStatus(e.target.value)}}
+                    onChange={e => setFilterStatus(e.target.value)}
                   />
                 </div>
               </div>
@@ -138,6 +141,6 @@ const DepositHistory = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default DepositHistory
+export default DepositHistory;

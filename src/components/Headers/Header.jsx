@@ -40,10 +40,10 @@ const Header = () => {
                 </div>
                 <div className='col-xl-3 col-lg-3 col-md-3 box-right'>
                     <div className='hd-ritgh'>
-                        <Link>
+                        <Link to={'/account'}>
                             <FaCircleUser />
                         </Link>
-                        <Link className='i-chil2'>
+                        <Link  className='i-chil2'>
                             <IoNotificationsCircle />
                         </Link>
                         <Link to={'/cart'}>

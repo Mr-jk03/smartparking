@@ -3,9 +3,16 @@ import './Body.css'
 import Menu from './Menu/Menu'
 import BodyCon from './BodyCon/BodyCon'
 import { useParams } from 'react-router-dom'
+// import { toast } from 'react-toastify';
 
 
-const Body = ({onLogOut}) => {
+const Body = ({onLogOut }) => { {/*showLoginToast */}
+
+    // useEffect(() =>{
+    //     if(showLoginToast){
+    //         toast.success("Đăng nhập thành công !",{position: 'top-right'})
+    //     }
+    // }, [showLoginToast])
 
     const {id} = useParams();
 

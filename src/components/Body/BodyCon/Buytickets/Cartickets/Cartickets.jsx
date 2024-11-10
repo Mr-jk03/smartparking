@@ -17,7 +17,7 @@ const Cartickets = () => {
                                 <FaCarSide />
                             </div>
                             <div className='Cartticket-cart-content'>
-                                <h3>Tên vé: {item.nameTicket}</h3>
+                                <h3>{item.nameTicket}</h3>
                                 <span>Giá vé: {item.price} <sup>đ</sup></span>
                                 <span>Thời gian: {item.duration}</span>
                                 <span>Số lần: {item.usage}</span>

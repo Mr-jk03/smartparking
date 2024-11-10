@@ -13,9 +13,7 @@ import DetailTickets from './DetailTickets/DetailTickets'
 
 const BodyCon = ({activeComponent, selectedTicketId, dispatch}) => {
 
-  
 
- 
   return (
     <div className='col-xl-12 warrper-bodycon'>
         {activeComponent === 'HOME' && <Home />}

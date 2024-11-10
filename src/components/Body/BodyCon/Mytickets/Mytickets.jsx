@@ -5,14 +5,16 @@ import { FaEye } from "react-icons/fa";
 import { IoQrCodeSharp } from "react-icons/io5";
 import QR from '../../../Images/qr.png';
 import { FaWindowClose } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Mytickets = () => {
-  // const limittedMyticketData = myticketData.slice(0, 10);
 
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectVehical, setSelectVehical] = useState('');
+
   const [isVisible, setIsVisible] = useState(false);
   const [selectedTicketIndex, setSelectedTicketIndex] = useState(null);
+
 
   const filterTickets = myticketData.filter((item) => 
     (selectedStatus ? item.status === selectedStatus : true) &&
@@ -28,6 +30,8 @@ const Mytickets = () => {
     setIsVisible(false);
     setSelectedTicketIndex(null);
   };
+
+
 
   return (
     <div className='wrapper-myticket'>
@@ -61,12 +65,12 @@ const Mytickets = () => {
                   <div className="container">
                     <div className="row">
                       <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">STT</div>
-                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Mã vé</div>
-                      <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">Tên vé</div>
-                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Loại vé</div>
+                      {/* <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Mã vé</div> */}
+                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Tên vé</div>
+                      {/* <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Loại vé</div> */}
                       <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Loại phương tiện</div>
-                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Trạng thái vé</div>
-                      <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">Thao tác</div>
+                      <div className="col-xl-3 col-lg-3 col-md-3 d-flex justify-content-center align-items-center">Trạng thái vé</div>
+                      <div className="col-xl-4 col-lg-4 col-md-4 d-flex justify-content-center align-items-center">Thao tác</div>
                     </div>
                   </div>
                 </div>
@@ -75,15 +79,17 @@ const Mytickets = () => {
                   {filterTickets.map((item, index) =>
                     <div className="container mytk-row" key={index}>
                       <div className="row">
-                        <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">{item.stt}</div>
-                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.code}</div>
-                        <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">{item.nameTicket}</div>
-                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.type}</div>
+                        <div className="col-xl-1 col-lg-1 col-md-1 d-flex justify-content-center align-items-center">{index + 1}</div>
+                        {/* <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.code}</div> */}
+                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.nameTicket}</div>
+                        {/* <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.type}</div> */}
                         <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.vehical}</div>
-                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center">{item.status}</div>
-                        <div className="col-xl-2 col-lg-2 col-md-2 d-flex justify-content-center align-items-center mytk-btn-active">
-                          <button>
-                            <FaEye />
+                        <div className="col-xl-3 col-lg-3 col-md-3 d-flex justify-content-center align-items-center">{item.status}</div>
+                        <div className="col-xl-4 col-lg-4 col-md-4 d-flex justify-content-center align-items-center mytk-btn-active">
+                          <button className='btn-myticket-eye'>
+                            <Link to={'/ticketdetailbuyed'}>
+                              <FaEye />
+                            </Link>
                           </button>
                           <button onClick={() => handleShowqr(index)}>
                             <IoQrCodeSharp />
@@ -110,6 +116,7 @@ const Mytickets = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };

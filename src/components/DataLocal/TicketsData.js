@@ -2,17 +2,17 @@
 
 // tikets for car
 export const cartTicketData = [
-    {id: 'OTL', type:'Vé lượt', nameTicket: 'OTL01', price: '20.000', duration: '1 giờ sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car'},
-    {id: 'OTN', type:'Vé ngày', nameTicket: 'OTN01', price: '40.000', duration: '1 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car'},
-    {id: 'OTT', type:'Vé Tuần', nameTicket: 'OTT01', price: '240.000', duration: '7 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car'},
-    {id: 'OTTG', type:'Vé Tháng', nameTicket: 'OTTG01', price: '860.000', duration: '30 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car'},
+    {id: 'OTL', nameTicket: 'Vé lượt', price: '20.000', duration: '1 giờ sau khi sử dụng', usage: '1 lần', vehical: 'Car', note: 'abcxyz'}, /* Trang mua vé bỏ vihacal, note. giữ! tại trang chi tiết */
+    {id: 'OTN', nameTicket: 'Vé Ngày', price: '40.000', duration: '1 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car', note: 'abcxyz'},
+    {id: 'OTT', nameTicket: 'Vé Tuần', price: '240.000', duration: '7 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car', note: 'abcxyz'},
+    {id: 'OTTG', nameTicket: 'Vé Tháng', price: '860.000', duration: '30 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Car', note: 'abcxyz'},
 ]
 // ticket for moto
 
 export const motoTicketData = [
-    {id: 'XML', type:'Vé lượt', nameTicket: 'XML01', price: '6.000', duration: '1 giờ sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto'},
-    {id: 'XMN', type:'Vé ngày', nameTicket: 'XMN01', price: '6.000', duration: '1 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto'},
-    {id: 'XMT', type:'Vé Tuần', nameTicket: 'XMT01', price: '6.000', duration: '7 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto'},
-    {id: 'XMTG', type:'Vé Tháng', nameTicket: 'XMTG01', price: '6.000', duration: '30 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto'},
+    {id: 'XML', nameTicket: 'Vé lượt', price: '6.000', duration: '1 giờ sau khi sử dụng', usage: '1 lần', vehical: 'Moto', note: 'abcxyz'},
+    {id: 'XMN', nameTicket: 'Vé Ngày', price: '6.000', duration: '1 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto', note: 'abcxyz'},
+    {id: 'XMT', nameTicket: 'Vé Tuần', price: '6.000', duration: '7 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto', note: 'abcxyz'},
+    {id: 'XMTG', nameTicket: 'Vé Tháng', price: '6.000', duration: '30 ngày sau khi sử dụng', usage: 'Vô hạn', vehical: 'Moto', note: 'abcxyz'},
 ]
 

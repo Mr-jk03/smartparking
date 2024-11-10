@@ -41,12 +41,12 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
           </div>
           <div className="col-xl-6">
             <div className="info-ticket">
-              <div className="info-ticket-type">
+              {/* <div className="info-ticket-type">
                 <h1>LOẠI VÉ</h1>
                 <span className="info-ticket-type">
                   {item.type}
                 </span>
-              </div>
+              </div> */}
               <div className='container-info'>
                   <span>Tên vé: {item.nameTicket}</span>
                   <span>Giá vé: {item.price} <sup>đ</sup></span>
@@ -54,7 +54,7 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
                   <span>Thời gian: {item.duration}</span>
                   <span>Lưu ý: </span>
                   <textarea className='note-ticket' readOnly name="" id="">
-                    abcxyz
+                    {item.note}
                   </textarea>
                   <div className='ft-info'>
                     

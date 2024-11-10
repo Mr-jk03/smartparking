@@ -7,11 +7,15 @@ import Login from './components/LoginRegister/Login/Login';
 import Register from './components/LoginRegister/Register/Register';
 import Cart from './components/Cart/Cart';
 import { useState } from 'react';
+import Account from './components/Account/Account';
+import Ticketdetailsbuyed from './components/Body/BodyCon/Ticketdetailsbuyed/Ticketdetailsbuyed';
+import InoutHistory from './components/Body/BodyCon/InoutHistory/InoutHistory';
+import ListQR from './components/Body/BodyCon/ListQR/ListQR';
+
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
 
   const handleLogin = () =>{
     setIsLoggedIn(true);
@@ -19,6 +23,7 @@ function App() {
   const handleLogOut = () =>{
     setIsLoggedIn(false)
   }
+
 
   return (
     <>
@@ -29,6 +34,10 @@ function App() {
             <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
             <Route path='/detail/:id' element={<Body onLogOut = {handleLogOut}/>}/>
             <Route path='/cart' element={<Cart />}/>
+            <Route path='/account' element={<Account />}/>
+            <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />
+            <Route path='/inouthistory' element={<InoutHistory />}/>
+            <Route path='/listqr' element={<ListQR />}/>
           </>
         ) : (
           <>

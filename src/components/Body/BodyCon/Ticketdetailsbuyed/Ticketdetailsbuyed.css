@@ -1,0 +1,61 @@
+.wrapper-ticketdetail-buyed{
+    padding-top: 90px;
+    height: auto;
+    width: 100%;
+    font-family: var(--roboto);
+}
+
+.btn-filter-ticketbuyed{
+    height: 50px;
+    width: 100%;
+    padding: 3px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-filter-ticketbuyed button{
+    height: 80%;
+    width: auto;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: rgb(188, 190, 192);
+    box-shadow: 0px 2px 3px var(--box-shadow);
+}
+.btn-filter-ticketbuyed button a{
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.ticked-buyed-th{
+    height: auto;
+    width: 100%;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 0px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 3px 4px var(--box-shadow);
+}
+
+.ticked-buyed-td{
+    height: auto;
+    width: 100%;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 0px;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 3px 4px var(--box-shadow);
+}

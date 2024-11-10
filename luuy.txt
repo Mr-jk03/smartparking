@@ -1,0 +1,22 @@
+nguyên nhân thay abc = {nạp tiền, mua vé, gia hạn vé, }
+tìm theo ngày.
+- bổ sung h, m, s (trong cột tg) => bdsd
+
+
+
+cart bỏ mã vé, thời gian thêm số lượng
+
+link sang trnag tt vé đã mua, 
+- [button] xem ds ls ra vào (1 ra, 1 vào: 1 dòng) bảng (Lượt, thời gian vào, tg ra, nd biển số, 
+								Ảnh vào,     ảnh ra   )
+	- Xem chi tiết lần ra vào 
+	- 
+	
+- [button] xem ds mã qr (stt, Thời gian tạo, thao tác( nút xem mã) ) (popup: nút tải xuống QR)
+	- xem mã qr
+	- Tạo mới mã QR
+
+
+- 1 Chi tiết vé đã mua (1stt 2Tên vé, 1Giá vé, 2Thời gian (số lượng, tiêu đề), 
+	2trạng thái, 1thời gian mua, 1Số lần đã sử dụng, 1nội dung biển số, 
+	1thời gian hết hạn)

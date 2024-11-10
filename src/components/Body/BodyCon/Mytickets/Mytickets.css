@@ -191,3 +191,41 @@
     width: 100%;
     text-align: center;
 }
+
+.btn-myticket-eye a{
+    color: #000;
+}
+
+.popup-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    height: 50%;
+    width: 100%;
+    background-color: #bebcbc65;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+    transform: translateY(-100%);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.popup-info.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.myticket-info {
+    height: 250px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

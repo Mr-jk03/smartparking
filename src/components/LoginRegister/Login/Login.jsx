@@ -4,25 +4,32 @@ import Logo from '../../Images/logo.png';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = (e) => {
-        e.preventDefault(); // Ngăn chặn reload trang khi submit form
+        e.preventDefault();
 
         if (username === 'kh' && password === '123') {
             onLogin();
-        } else if (username !== 'kh') {
-            alert('Tài khoản không đúng');
-        } else if (password !== '123') {
-            alert("Mật khẩu không đúng");
+        }else if(username === '' && password === ''){
+            toast.error('Vui lòng điền đầy đủ thông tin tài khoản !', {position: 'top-right'})
+        }else if(username === ''){
+            toast.error('Vui lòng điền tên đăng nhập !', {position:'top-right'})
+        }else if(password === ''){
+            toast.error('Vui lòng điền mật khẩu !', {position:'top-right'})
+        }else if (username !== 'kh' || password !== '123') {
+            toast.error('Tên đăng nhập hoặc mật khẩu không chính xác', {position: 'top-right'});
         }
     }
 
     return (
         <div className='wrapper-login'>
+            <ToastContainer style={{ zIndex: 9999 }}/>
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center">
                     <div className="col-xl-6 col-lg-6 col-md-6">
@@ -45,7 +52,6 @@ const Login = ({ onLogin }) => {
                                                         placeholder='Tên đăng nhập...'
                                                         value={username}
                                                         onChange={e => setUsername(e.target.value)}
-                                                        required
                                                     />
                                                     <i className='login-icon'>
                                                         <FaUserCircle />
@@ -62,7 +68,6 @@ const Login = ({ onLogin }) => {
                                                         placeholder='Mật khẩu...'
                                                         value={password}
                                                         onChange={e => setPassword(e.target.value)}
-                                                        required
                                                         maxLength={16}
                                                     />
                                                     <i className='login-icon'>
