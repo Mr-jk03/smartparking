@@ -1,19 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { data } from '../../../DataLocal/HomeData'
 import { dataDeposit } from '../../../DataLocal/HomeData'
 import { ticket_activity } from '../../../DataLocal/HomeData'
 
 import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Scatter } from 'recharts';
+import { endpoint } from '../../../../config/apiConfig'
 
 const Home = () => {
 
-  const [bougth, setBougth] = useState(255);
+  const [bougth, setBougth] = useState(null);
   const [month, setMonth] = useState(255000);
   const [used, setUsed] = useState(15);
 
   const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
   const formatHour = (tick) => `${tick}h`;
+
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    console.log(token)
+    fetch(endpoint.bougthTicket.url, {
+      method: endpoint.bougthTicket.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setBougth(data.result);
+      }else{
+        console.log(data.message);
+      }
+    })
+    .catch(error =>{
+      console.log('Loi ket noi', error)
+    })
+  }, [])
 
   return (
     <div className='container'>

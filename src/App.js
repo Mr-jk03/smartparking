@@ -6,7 +6,7 @@ import Body from './components/Body/Body';
 import Login from './components/LoginRegister/Login/Login';
 import Register from './components/LoginRegister/Register/Register';
 import Cart from './components/Cart/Cart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Account from './components/Account/Account';
 import Ticketdetailsbuyed from './components/Body/BodyCon/Ticketdetailsbuyed/Ticketdetailsbuyed';
 import InoutHistory from './components/Body/BodyCon/InoutHistory/InoutHistory';
@@ -15,14 +15,27 @@ import ListQR from './components/Body/BodyCon/ListQR/ListQR';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
 
-  const handleLogin = () =>{
+  useEffect(() =>{
+    const saveToken = localStorage.getItem('token');
+    if(saveToken){
+      setIsLoggedIn(true);
+      setToken(saveToken);
+    }
+  }, [])
+
+  const handleLogin = (receivedToken) => {
     setIsLoggedIn(true);
-  }
-  const handleLogOut = () =>{
-    setIsLoggedIn(false)
-  }
+    setToken(receivedToken);
+  };
+
+  const handleLogOut = () => {
+    setIsLoggedIn(false);
+    setToken(null);
+    localStorage.removeItem('token');
+  };
 
 
   return (

@@ -6,6 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { endpoint } from '../../../config/apiConfig';
 
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -14,22 +15,42 @@ const Login = ({ onLogin }) => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        if (username === 'kh' && password === '123') {
-            onLogin();
-        }else if(username === '' && password === ''){
-            toast.error('Vui lòng điền đầy đủ thông tin tài khoản !', {position: 'top-right'})
-        }else if(username === ''){
-            toast.error('Vui lòng điền tên đăng nhập !', {position:'top-right'})
-        }else if(password === ''){
-            toast.error('Vui lòng điền mật khẩu !', {position:'top-right'})
-        }else if (username !== 'kh' || password !== '123') {
-            toast.error('Tên đăng nhập hoặc mật khẩu không chính xác', {position: 'top-right'});
+        if (username === '' && password === '') {
+            toast.error('Vui lòng điền đầy đủ thông tin tài khoản !', { position: 'top-right' })
+        } else if (username === '') {
+            toast.error('Vui lòng điền tên đăng nhập !', { position: 'top-right' })
+        } else {
+            const body = {
+                email: username,
+                password
+            }
+
+            fetch(endpoint.login.url, {
+                method: endpoint.login.method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.code === 1000){
+                        localStorage.setItem('token', data.result.token);
+                        onLogin()
+                    }
+
+                    toast.error(data.message, { position: 'top-right' })
+                })
+                .catch(error => {
+                    console.log("catch")
+                    console.error(error)
+                })
         }
     }
 
     return (
         <div className='wrapper-login'>
-            <ToastContainer style={{ zIndex: 9999 }}/>
+            <ToastContainer style={{ zIndex: 9999 }} />
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center">
                     <div className="col-xl-6 col-lg-6 col-md-6">
@@ -42,13 +63,13 @@ const Login = ({ onLogin }) => {
                                     </div>
                                 </div>
                                 <div className="col-xl-12 col-lg-12 col-md-12">
-                                    <form onSubmit={handleLogin}> 
+                                    <form onSubmit={handleLogin}>
                                         <div className="col-xl-12">
                                             <div className="login-input">
                                                 <span>Tên đăng nhập</span>
                                                 <div className='ip-relative'>
-                                                    <input 
-                                                        type="text" 
+                                                    <input
+                                                        type="text"
                                                         placeholder='Tên đăng nhập...'
                                                         value={username}
                                                         onChange={e => setUsername(e.target.value)}
@@ -63,8 +84,8 @@ const Login = ({ onLogin }) => {
                                             <div className="login-input">
                                                 <span>Mật khẩu</span>
                                                 <div className='ip-relative'>
-                                                    <input 
-                                                        type="password" 
+                                                    <input
+                                                        type="password"
                                                         placeholder='Mật khẩu...'
                                                         value={password}
                                                         onChange={e => setPassword(e.target.value)}

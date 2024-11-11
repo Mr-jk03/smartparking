@@ -7,7 +7,7 @@ tìm theo ngày.
 cart bỏ mã vé, thời gian thêm số lượng
 
 link sang trnag tt vé đã mua, 
-- [button] xem ds ls ra vào (1 ra, 1 vào: 1 dòng) bảng (Lượt, thời gian vào, tg ra, nd biển số, 
+- [button] xem ds ls ra vào (1 ra, 1 vào: 1 dòng) bảng (1stt,1Lượt,2thời gian vào,2tg ra, 3nd biển số, 3thao tac
 								Ảnh vào,     ảnh ra   )
 	- Xem chi tiết lần ra vào 
 	- 

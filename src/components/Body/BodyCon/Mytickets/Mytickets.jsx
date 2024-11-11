@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Mytickets.css';
-import { myticketData } from '../../../DataLocal/MyticketData';
+// import { myticketData } from '../../../DataLocal/MyticketData';
 import { FaEye } from "react-icons/fa";
 import { IoQrCodeSharp } from "react-icons/io5";
 import QR from '../../../Images/qr.png';
 import { FaWindowClose } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { endpoint } from '../../../../config/apiConfig';
 
 const Mytickets = () => {
+
+  const [myticketData, setMyticketData] = useState([]);
 
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectVehical, setSelectVehical] = useState('');
 
   const [isVisible, setIsVisible] = useState(false);
   const [selectedTicketIndex, setSelectedTicketIndex] = useState(null);
+
+  useEffect(() =>{
+
+    const token = localStorage.getItem('token');
+
+    fetch(endpoint.myTicket.url, {
+      method: endpoint.myTicket.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setMyticketData(data.result);
+      }else{
+        console.log('Loi khi lay du lieu');
+      }
+    })
+    .catch(error =>{
+      console.log('Loi ket noi', error);
+    })
+  }, [])
 
 
   const filterTickets = myticketData.filter((item) => 

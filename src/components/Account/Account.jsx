@@ -1,9 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Account.css'
 import { Link } from 'react-router-dom'
 import { FaUserAlt } from "react-icons/fa";
+import { endpoint } from '../../config/apiConfig';
 
 const Account = () => {
+
+    const [usernameUser, setUsernameUser] = useState(null);
+    const [nameUser, setNameUser] = useState(null);
+    const [phoneUser, setPhoneUser] = useState(null);
+
+    useEffect(() =>{
+
+        const token = localStorage.getItem('token');
+
+        fetch(endpoint.account.url, {
+            method: endpoint.account.method, 
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data =>{
+            if(data.code === 1000){
+                setUsernameUser(data.result.email);
+                setNameUser(data.result.name);
+                setPhoneUser(data.result.phone);
+            }else{
+                console.log('Loi khi lay du lieu')
+            }
+        })
+        .catch(error =>{
+            console.log('Loi ket noi', error);
+        })
+    }, [])
+
+
   return (
     <div className='wrapper-account'>
         <div className="container">
@@ -37,19 +70,29 @@ const Account = () => {
                                             <div className="col-xl-6">
                                                 <div className='box-info'>
                                                     <span>Tên đăng nhập</span>
-                                                    <input type="text" />
+                                                    <input type="text" 
+                                                        value={usernameUser}
+                                                        onChange={(e) => setUsernameUser(e.target.value)}
+                                                        readOnly
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className='box-info'>
                                                     <span>Số điện thoại</span>
-                                                    <input type="text" />
+                                                    <input type="text" 
+                                                        value={phoneUser}
+                                                        onChange={(e) =>setPhoneUser(e.target.value)}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-xl-6">
                                                 <div className='box-info'>
                                                     <span>Tên</span>
-                                                    <input type="text" />
+                                                    <input type="text" 
+                                                        value={nameUser}
+                                                        onChange={(e) => setNameUser(e.target.value)}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>

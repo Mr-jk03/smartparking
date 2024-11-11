@@ -1,13 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DepositHistory.css';
 import { IoIosSearch } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
-import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
+// import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
+import { endpoint } from '../../../../config/apiConfig';
 
 const DepositHistory = () => {
-  const totalLoaded = deponsitHistory
-    .filter((item) => item.statusClass === 'success')
-    .reduce((total, item) => total + item.amount, 0);
+  const [deponsitHistory, setDepositHistory] = useState([]);
+  const [filterStatus, setFilterStatus] = useState('');
+  const [filterDate, setFilterDate] = useState('');
+
+
+  useEffect(() =>{
+
+    const token = localStorage.getItem('token');
+
+    fetch(endpoint.depositHistory.url, {
+      method:endpoint.depositHistory.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(responsive => responsive.json())
+    .then(data => {
+      if(data.code === 1000){
+        setDepositHistory(data.result)
+      }else{
+        console.error('Loi khi lay su lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('Loi ket noi', error)
+    })
+  }, [])
+
+
+  // const totalLoaded = deponsitHistory
+  //   .filter((item) => item.statusClass === 'success')
+  //   .reduce((total, item) => total + item.amount, 0);
   
   const totalSuccess = deponsitHistory
     .filter((item) => item.statusClass === 'dp-history-loaded')
@@ -17,12 +48,10 @@ const DepositHistory = () => {
     .filter((item) => item.statusClass === 'pending')
     .reduce((total, item) => total + item.amount, 0);
 
-  const [loaded] = useState(totalLoaded.toLocaleString('vi-VN'));
+  // const [loaded] = useState(totalLoaded.toLocaleString('vi-VN'));
   const [successfully] = useState(totalSuccess.toLocaleString('vi-VN'));
   const [pending] = useState(totalPending.toLocaleString('vi-VN'));
 
-  const [filterStatus, setFilterStatus] = useState('');
-  const [filterDate, setFilterDate] = useState('');
 
   // Lọc dữ liệu theo trạng thái và ngày
   const filterDeponsitHistory = deponsitHistory.filter(item =>
@@ -37,12 +66,12 @@ const DepositHistory = () => {
           <div className="col-xl-12 col-lg-12 col-md-12">
             <div className="container">
               <div className="row">
-                <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
+                {/* <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
                   <div className="dp-history-cart bg-htr-c1">
                     <span className='cart-htr-title'>Tổng số tiền đã nạp</span>
                     <span className='loaded'>{loaded} <sup>đ</sup></span>
                   </div>
-                </div>
+                </div> */}
                 <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
                   <div className="dp-history-cart bg-htr-c2">
                     <span className='cart-htr-title'>Số tiền đã duyệt thành công</span>

@@ -6,9 +6,15 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaLock } from "react-icons/fa6";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { endpoint } from '../../../config/apiConfig';
 
 const Register = () => {
     const [emailFomat, setEmailFomat] = useState('');
+    const [passwordRes, setPasswordRes] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+
+
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,6 +26,36 @@ const Register = () => {
             toast.error('Email không đúng định dạng', { position: 'top-right' });
         }
     };
+
+    const handleSubmit = () =>{
+        if( passwordRes !== confirmPassword){
+            toast.error('Mật khẩu không khớp', { position: 'top-right' });
+            return;
+        }
+        const body ={
+            email: emailFomat,
+            password: passwordRes
+        }
+
+        fetch(endpoint.register.url, {
+            method: endpoint.register.method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if(data.code === 1000){
+                    toast.success('Đăng ký thành công', { position: 'top-right' });
+                }else{
+                    toast.error(data.message, { position: 'top-right' });
+                }
+            })
+            .catch(error =>{
+                toast.error('Lỗi kết nối', { position: 'top-right' });
+            })
+    }
 
     return (
         <div className='wrapper-register'>
@@ -53,7 +89,10 @@ const Register = () => {
                                     </div>
                                     <div className="register-input">
                                         <div className='ip-relative'>
-                                            <input type="password" placeholder='Mật khẩu...' maxLength={16}/>
+                                            <input type="password" placeholder='Mật khẩu...' maxLength={16}
+                                                value={passwordRes}
+                                                onChange={(e) => setPasswordRes(e.target.value)}
+                                            />
                                             <i className='register-icon'>
                                                 <FaLock />
                                             </i>
@@ -62,7 +101,10 @@ const Register = () => {
                                     </div>
                                     <div className="register-input">
                                         <div className='ip-relative'>
-                                            <input type="password" placeholder='Xác nhận mật khẩu...' maxLength={16}/>
+                                            <input type="password" placeholder='Xác nhận mật khẩu...' maxLength={16}
+                                                value={confirmPassword}
+                                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                            />
                                             <i className='register-icon'>
                                                 <FaLock />
                                             </i>
@@ -72,7 +114,7 @@ const Register = () => {
                                 </div>
                                 <div className="col-xl-12">
                                     <div className="btn-register">
-                                        <button>Đăng ký</button>
+                                        <button onClick={handleSubmit}>Đăng ký</button>
                                         <Link to='/login'>Đăng nhập</Link>
                                     </div>
                                 </div>
