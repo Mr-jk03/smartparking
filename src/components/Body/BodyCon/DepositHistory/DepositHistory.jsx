@@ -138,29 +138,38 @@ const DepositHistory = () => {
                   </div>
                   <div className="table-body">
                     <div className="container">
-                      {filterDeponsitHistory.map((item, index) =>
-                        <div className="row mg-row" key={index}>
-                          <div className="col-xl-1 col-lg-1 col-md-1 dps-history-td">
-                            <span>{item.stt}</span>
+                      {filterDeponsitHistory.length > 0 ? (
+                        filterDeponsitHistory.map((item, index) => (
+                          <div className="row mg-row" key={index}>
+                            <div className="col-xl-1 col-lg-1 col-md-1 dps-history-td">
+                              <span>{item.stt}</span>
+                            </div>
+                            <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
+                              <span>{item.date}</span>
+                            </div>
+                            <div className="col-xl-2 col-lg-2 col-md-2 dps-history-td">
+                              <span>{item.amount.toLocaleString('vi-VN')}</span>
+                            </div>
+                            <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
+                              <span className={item.statusClass}>{item.status}</span>
+                            </div>
+                            <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
+                              <button className='btn-history-dp'>
+                                <FaEye />
+                              </button>
+                            </div>
                           </div>
-                          <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
-                            <span>{item.date}</span>
-                          </div>
-                          <div className="col-xl-2 col-lg-2 col-md-2 dps-history-td">
-                            <span>{item.amount.toLocaleString('vi-VN')}</span>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
-                            <span className={item.statusClass}>{item.status}</span>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
-                            <button className='btn-history-dp'>
-                              <FaEye />
-                            </button>
+                        ))
+                      ) : (
+                        <div className="row">
+                          <div className="col-12 text-center">
+                            <span>Không có dữ liệu</span>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
+
                 </div>
               </div>
 
