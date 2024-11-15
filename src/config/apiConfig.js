@@ -27,8 +27,16 @@ export const endpoint = {
         url: baseApi + "/ticket/all?page=1",
         method: "GET"
     },
-    buyTickets:{
-        url: baseApi + "/ticket/category/info/8362bd36-a249-4b1e-b4a2-280b92b55555",
+    buyTicketBikes:{ /*---đã xong */
+        url: baseApi + "/ticket/category/find?vehicle=bike",
+        method: "GET"
+    },
+    buyTicketCar:{ /*-- đã xong*/
+        url: baseApi + "/ticket/category/find?vehicle=Car",
+        method: "GET"
+    },
+    balance:{ /*--số dư đã xong */
+        url: baseApi + "/vault/owners/balance",
         method: "GET"
     }
     

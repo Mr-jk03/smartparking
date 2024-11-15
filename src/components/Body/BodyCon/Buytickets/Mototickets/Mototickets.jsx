@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import './Mototickets.css'
+import React, { useEffect, useState } from 'react';
+import './Mototickets.css';
 import { Link } from 'react-router-dom';
-// import { motoTicketData } from '../../../../DataLocal/TicketsData'
-
 import { FaMotorcycle } from "react-icons/fa6";
 import { endpoint } from '../../../../../config/apiConfig';
 
-
 const Mototickets = () => {
-
     const [motoTicketData, setmotoTicketData] = useState([]);
 
     const lemitedMototicketdata = motoTicketData.slice(0, 4);
@@ -16,8 +12,8 @@ const Mototickets = () => {
     useEffect(() =>{
         const token = localStorage.getItem('token');
 
-        fetch(endpoint.buyTickets.url, {
-            method: endpoint.buyTickets.method,
+        fetch(endpoint.buyTicketBikes.url, {
+            method: endpoint.buyTicketBikes.method,
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -26,17 +22,15 @@ const Mototickets = () => {
         .then(res => res.json())
         .then(data =>{
             if(data.code === 1000){
-                setmotoTicketData([data.result])
+                setmotoTicketData(data.result);
             }else{
-                console.error('loi lay du lieu')
+                console.error('Lỗi lấy dữ liệu');
             }
         })
         .catch(error =>{
-            console.log('Loi khi ket noi', error)
-        })
-    }, [])
-
-
+            console.log('Lỗi khi kết nối', error);
+        });
+    }, []);
 
   return (
     <div className='container'>
@@ -54,7 +48,7 @@ const Mototickets = () => {
                             <span>Số lần: {item.usage}</span>
 
                             <div className='detail-btn-buy'>
-                                <Link to={`/detail/${item.id}`}>Chi tiết vé</Link>
+                                <Link to={`/detail/bike/${item.id}`}>Chi tiết vé</Link>
                                 <button>Mua ngay</button>
                             </div>
                         </div>
@@ -63,7 +57,7 @@ const Mototickets = () => {
             )}
         </div>
     </div>
-  )
+  );
 }
 
-export default Mototickets
+export default Mototickets;

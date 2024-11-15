@@ -1,25 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DetailTickets.css'
-import { motoTicketData, cartTicketData } from '../../../DataLocal/TicketsData'
 import { useParams } from 'react-router-dom'
 import { FaCartPlus } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 import { FaMotorcycle } from "react-icons/fa6";
 import { FaCarSide } from "react-icons/fa";
+import { endpoint } from '../../../../config/apiConfig';
 
 
 const DetailTickets = ({selectedTicket, dispatch}) => {
 
-  const {id} = useParams();
-  const motoTicket = motoTicketData.find((item) => item.id === selectedTicket);
-  const carTicket = cartTicketData.find((item) => item.id === selectedTicket);
+  const {vehicle, id} = useParams();
+  const [ticketData, setTicketData] = useState(null);
 
-  const item = motoTicket || carTicket
+  useEffect(() =>{
+    const api = vehicle === 'bike'
+    ? endpoint.buyTicketBikes.url
+    : endpoint.buyTicketCar.url;
+
+
+    const token = localStorage.getItem('token');
+    fetch(api, {
+      method: "GET",
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.code === 1000){
+        const ticket = data.result.find(item =>item.id === id)
+        setTicketData(ticket)
+      }else{
+        console.error('Loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('loi ket noi', error);
+    })
+  }, [vehicle, id])
+
 
   return (
     <div className='wrapper-detail'>
-      {item ?(
+      {ticketData ?(
       <div className="container">
         <div className="row">
           <div className="col-xl-6">
@@ -31,8 +57,8 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
               <div className="row">
                 <div className="col-xl-12">
                   <div className="dt-ticket">
-                    {item.vehical === 'Moto' ? (<FaMotorcycle />):
-                      item.vehical === 'Car' ? (<FaCarSide />): null
+                    {vehicle === 'bike' ? (<FaMotorcycle />):
+                     vehicle === 'car' ? (<FaCarSide />): null
                     }
                   </div>
                 </div>
@@ -41,20 +67,14 @@ const DetailTickets = ({selectedTicket, dispatch}) => {
           </div>
           <div className="col-xl-6">
             <div className="info-ticket">
-              {/* <div className="info-ticket-type">
-                <h1>LOẠI VÉ</h1>
-                <span className="info-ticket-type">
-                  {item.type}
-                </span>
-              </div> */}
               <div className='container-info'>
-                  <span>Tên vé: {item.nameTicket}</span>
-                  <span>Giá vé: {item.price} <sup>đ</sup></span>
-                  <span>Loại phương tiện: {item.vehical}</span>
-                  <span>Thời gian: {item.duration}</span>
+                  <span>Tên vé: {ticketData.name}</span>
+                  <span>Giá vé: {ticketData.price} <sup>đ</sup></span>
+                  <span>Loại phương tiện: {vehicle}</span>
+                  <span>Thời gian: {ticketData.duration}</span>
                   <span>Lưu ý: </span>
                   <textarea className='note-ticket' readOnly name="" id="">
-                    {item.note}
+                    {ticketData.note}
                   </textarea>
                   <div className='ft-info'>
                     

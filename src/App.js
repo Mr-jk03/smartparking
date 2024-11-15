@@ -45,7 +45,7 @@ function App() {
         {isLoggedIn ? (
           <>
             <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
-            <Route path='/detail/:id' element={<Body onLogOut = {handleLogOut}/>}/>
+            <Route path='/detail/:vehicle/:id' element={<Body onLogOut = {handleLogOut}/>}/>
             <Route path='/cart' element={<Cart />}/>
             <Route path='/account' element={<Account />}/>
             <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />

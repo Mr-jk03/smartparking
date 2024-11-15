@@ -28,33 +28,39 @@ const Register = () => {
     };
 
     const handleSubmit = () =>{
-        if( passwordRes !== confirmPassword){
+        if(emailFomat === ''){
+            toast.error('Vui lòng nhập email',{ position: 'top-right'} )
+        }else if(passwordRes === ''){
+            toast.error('Vui lòng nhập mật khẩu', {position: 'top-right'})
+        }else if(confirmPassword === ''){
+            toast.error('Vui lòng xác nhận mật khẩu', {position: 'top-right'})
+        }else if( passwordRes !== confirmPassword){
             toast.error('Mật khẩu không khớp', { position: 'top-right' });
             return;
-        }
-        const body ={
-            email: emailFomat,
-            password: passwordRes
-        }
-
-        fetch(endpoint.register.url, {
-            method: endpoint.register.method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if(data.code === 1000){
-                    toast.success('Đăng ký thành công', { position: 'top-right' });
-                }else{
-                    toast.error(data.message, { position: 'top-right' });
-                }
+        }else{
+            const body ={
+                email: emailFomat,
+                password: passwordRes
+            }
+            fetch(endpoint.register.url, {
+                method: endpoint.register.method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             })
-            .catch(error =>{
-                toast.error('Lỗi kết nối', { position: 'top-right' });
-            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.code === 1000){
+                        toast.success('Đăng ký thành công', { position: 'top-right' });
+                    }else{
+                        toast.error(data.message, { position: 'top-right' });
+                    }
+                })
+                .catch(error =>{
+                    toast.error('Lỗi kết nối', { position: 'top-right' });
+                })
+        }
     }
 
     return (
