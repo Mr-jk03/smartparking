@@ -48,7 +48,7 @@ const Mototickets = () => {
                             <span>Số lần: {item.usage}</span>
 
                             <div className='detail-btn-buy'>
-                                <Link to={`/detail/bike/${item.id}`}>Chi tiết vé</Link>
+                                <Link to={`/detail/motorbike/${item.id}`}>Chi tiết vé</Link>
                                 <button>Mua ngay</button>
                             </div>
                         </div>

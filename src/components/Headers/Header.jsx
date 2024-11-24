@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import './Header.css'
 import Logo from '../Images/logo.png'
 import { FaCircleUser } from "react-icons/fa6";
@@ -7,36 +7,36 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaWallet } from "react-icons/fa6";
 import {Link} from 'react-router-dom';
 import { endpoint } from '../../config/apiConfig';
+import { WalletContext } from '../WalletContext/WalletContext';
 
 
 const Header = () => {
+    const { walletBalance, updateWalletBalance } = useContext(WalletContext);
 
-    const [inputValues, setInputValues] = useState('');
+    // const [inputValues, setInputValues] = useState('');
     const [quantityCart, setQuantityCart] = useState();
 
 
-    useEffect(() =>{
-        const token = localStorage.getItem('token');
-        fetch(endpoint.wallet.url, {
+    useEffect(() => {
+        if (!walletBalance) {
+          const token = localStorage.getItem('token');
+          console.log("Fetching wallet balance with token:", token);
+          fetch(endpoint.wallet.url, {
             method: endpoint.wallet.method,
-            headers:{
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.code === 1000){
-                const fomatNumber = data.result.balence.toLocaleString('vi-VN');
-                setInputValues(fomatNumber);
-            }else{
-                console.error("loi khi lay du lieu")
-            }
-        })
-        .catch(error =>{
-            console.log("loi ket noi", error)
-        })
-    },[])
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.code === 1000) {
+                updateWalletBalance(data.result.balence.toLocaleString('vi-VN'));
+              }
+            })
+            .catch((error) => console.error('Lỗi khi lấy dữ liệu ví', error));
+        }
+      }, [walletBalance, updateWalletBalance]);
 
     useEffect(() =>{
         const token = localStorage.getItem('token');
@@ -78,8 +78,8 @@ const Header = () => {
                     <div className='main-input'>
                         <FaWallet  className='wallet'/>
                         <input type="text" 
-                            value={inputValues}
-                            onChange={e => setInputValues(e.target.value)}
+                            value={walletBalance || 'Đang tải...'}
+                            // onChange={e => setInputValues(e.target.value)}
                             readOnly
                         />
                         <span>VND</span>

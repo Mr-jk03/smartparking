@@ -11,38 +11,42 @@ import Account from './components/Account/Account';
 import Ticketdetailsbuyed from './components/Body/BodyCon/Ticketdetailsbuyed/Ticketdetailsbuyed';
 import InoutHistory from './components/Body/BodyCon/InoutHistory/InoutHistory';
 import ListQR from './components/Body/BodyCon/ListQR/ListQR';
+import { WalletProvider } from './components/WalletContext/WalletContext';
 
+let token = localStorage.getItem('token');
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState(null);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [token, setToken] = useState(null);
 
-  useEffect(() =>{
-    const saveToken = localStorage.getItem('token');
-    if(saveToken){
-      setIsLoggedIn(true);
-      setToken(saveToken);
-    }
-  }, [])
+  // useEffect(() =>{
+  //   const saveToken = localStorage.getItem('token');
+  //   if(saveToken){
+  //     setIsLoggedIn(true);
+  //     setToken(saveToken);
+  //   }
+  // }, [])
 
   const handleLogin = (receivedToken) => {
-    setIsLoggedIn(true);
-    setToken(receivedToken);
+    token = receivedToken;
+    localStorage.setItem('token', receivedToken);
+    window.location.href = '/'; // Điều hướng về trang chính sau khi đăng nhập
   };
 
   const handleLogOut = () => {
-    setIsLoggedIn(false);
-    setToken(null);
+    token = null;
     localStorage.removeItem('token');
+    window.location.href = '/login';
   };
 
 
   return (
+    <WalletProvider>
     <>
-      {isLoggedIn && <Header />}
+      {token && <Header />}
       <Routes>
-        {isLoggedIn ? (
+        {token ? (
           <>
             <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
             <Route path='/detail/:vehicle/:id' element={<Body onLogOut = {handleLogOut}/>}/>
@@ -61,8 +65,9 @@ function App() {
         )}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {isLoggedIn && <Footer />}
+      {token && <Footer />}
     </>
+    </WalletProvider>
   );
 }
 

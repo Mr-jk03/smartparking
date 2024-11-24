@@ -1,14 +1,78 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './Deposit.css'
 import { TbAlertTriangleFilled } from "react-icons/tb";
-import  QR  from '../../../Images/qr.png'
+import { endpoint } from '../../../../config/apiConfig';
+import { WalletContext } from '../../../WalletContext/WalletContext';
 
 
 const Deposit = () => {
-  const [deposit, setDeposit] = useState()
+  const [deposit, setDeposit] = useState();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { updateWalletBalance } = useContext(WalletContext);
+
+  const checkTransactionStatus = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const responseCode = queryParams.get("vnp_ResponseCode");
+    const transactionStatus = queryParams.get("vnp_TransactionStatus");
+
+    if (responseCode === '00' && transactionStatus === '00') {
+      setIsSuccess(true);
+
+      const token = localStorage.getItem('token');
+      fetch(endpoint.wallet.url, {
+        method: endpoint.wallet.method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code === 1000) {
+            updateWalletBalance(data.result.balence.toLocaleString('vi-VN'));
+          }
+        })
+        .catch((error) => console.error('Lỗi khi cập nhật số dư', error));
+    }
+  };
+  useEffect(() =>{
+    checkTransactionStatus();
+  },[])
 
   const handleChooseAmount = (amount) =>{
     setDeposit(amount.toLocaleString('vi-VN'))
+  }
+  const handleSubmitDeposit = () =>{
+    if(!deposit){
+      alert('Vui lòng chọn số tiền cần nạp');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    const body ={
+      amount: parseInt(deposit.replace(/\./g, ""), 10),
+    };
+    fetch(endpoint.deposit.url,{
+      method: endpoint.deposit.method,
+      headers:{
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.code === 1000){
+        const {linkPayment } = data.result;
+
+        window.location.href = linkPayment;
+      }else{
+        console.error('Loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('loi ket noi', error);
+    })
   }
 
   return (
@@ -21,7 +85,12 @@ const Deposit = () => {
             <div className="col-xl-12 col-lg-12 col-md-12 dp-body">
               <div className="container">
                 <div className="row">
-                  <div className="col-xl-7 col-lg-7 col-md-7">
+                  <div className="col-xl-12 col-lg-12 col-md-12">
+                  {isSuccess && ( 
+                    <div className="alert alert-success">
+                      Nạp tiền thành công! Cảm ơn bạn đã sử dụng dịch vụ.
+                    </div>
+                  )}
                     <div className="note">
                       <h3>hướng dẫn</h3>
                       <span>Bước 1: Chọn mệnh giá nạp</span>
@@ -46,15 +115,12 @@ const Deposit = () => {
                       <button className='dp-cart' onClick={() =>handleChooseAmount(500000)}>500.000</button>
                       <div className='fomr-transferred'>
                         <span>Số tiền nạp: {deposit}</span>
-                        <button className='btn-transferred'>Đã chuyển khoản</button>
+                        <button className='btn-transferred'
+                          onClick={handleSubmitDeposit}
+                        >Gửi yêu cầu</button>
                       </div>
                     </div>
 
-                  </div>
-                  <div className="col-xl-5 col-lg-5 col-md-5">
-                    <div className='qr'>
-                        <img src={QR} alt="qr" />
-                    </div>
                   </div>
                 </div>
               </div>

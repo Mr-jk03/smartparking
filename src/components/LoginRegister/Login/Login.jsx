@@ -14,17 +14,17 @@ const Login = ({ onLogin }) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-
+    
         if (username === '' && password === '') {
-            toast.error('Vui lòng điền đầy đủ thông tin tài khoản !', { position: 'top-right' })
+            toast.error('Vui lòng điền đầy đủ thông tin tài khoản!', { position: 'top-right' });
         } else if (username === '') {
-            toast.error('Vui lòng điền tên đăng nhập !', { position: 'top-right' })
+            toast.error('Vui lòng điền tên đăng nhập!', { position: 'top-right' });
         } else {
             const body = {
                 email: username,
                 password
-            }
-
+            };
+    
             fetch(endpoint.login.url, {
                 method: endpoint.login.method,
                 headers: {
@@ -34,19 +34,27 @@ const Login = ({ onLogin }) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if(data.code === 1000){
+                    console.log("Login API response:", data); // Debug API response
+                    if (data.code === 1000) {
+                        // Lưu token vào localStorage
                         localStorage.setItem('token', data.result.token);
-                        onLogin()
+                        
+                        // Gọi onLogin để cập nhật trạng thái App
+                        onLogin(data.result.token);
+    
+                        // Chuyển hướng về trang chủ
+                        toast.success('Đăng nhập thành công!', { position: 'top-right' });
+                    } else {
+                        toast.error(data.message || 'Đăng nhập thất bại!', { position: 'top-right' });
                     }
-
-                    toast.error(data.message, { position: 'top-right' })
                 })
                 .catch(error => {
-                    console.log("catch")
-                    console.error(error)
-                })
+                    console.error("Error during login:", error);
+                    toast.error('Đã xảy ra lỗi, vui lòng thử lại!', { position: 'top-right' });
+                });
         }
-    }
+    };
+    
 
     return (
         <div className='wrapper-login'>

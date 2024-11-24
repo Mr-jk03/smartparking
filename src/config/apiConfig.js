@@ -28,7 +28,7 @@ export const endpoint = {
         method: "GET"
     },
     buyTicketBikes:{ /*---đã xong */
-        url: baseApi + "/ticket/category/find?vehicle=bike",
+        url: baseApi + "/ticket/category/find?vehicle=Môtbike",
         method: "GET"
     },
     buyTicketCar:{ /*-- đã xong*/
@@ -51,17 +51,25 @@ export const endpoint = {
         url: baseApi + "/ticket/cart/count",
         method: "GET"
     },
-    add_cart:{ /*Thêm giỏ hàng đã xongh*/
+    add_cart:{ /*Thêm giỏ hàng đã xong*/
         url: baseApi + "/ticket/cart",
         method: "POST"
     },
-    show_item_cart:{ /* hiển thị danh sách giỏ hàng */
+    show_item_cart:{ /* hiển thị danh sách giỏ hàng --đã xong*/
         url: baseApi + "/ticket/cart/all",
         method:"GET"
     },
-    put_quantity:{/*Chỉnh sửa số lượng số lượng */
+    put_quantity:{/*Chỉnh sửa số lượng số lượng --đã xong*/
         url: baseApi + "/ticket/cart/edit/quantity",
         method: "PUT"
+    },
+    delete_item_cart:{ /* Xoá item trong giỏ hàng --đã xong*/
+        url:(categoryId) => baseApi + `/ticket/cart/${categoryId}`,
+        method: "DELETE"
+    },
+    deposit:{ /*Nạp tiền */
+        url: baseApi + "/vault/deposit",
+        method: "POST"
     }
     
 }
