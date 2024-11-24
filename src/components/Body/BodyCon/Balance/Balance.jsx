@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Balance.css'
 import { useState } from 'react';
-import { BalanceData } from '../../../DataLocal/BalanceData';
+// import { BalanceData } from '../../../DataLocal/BalanceData';
+import { endpoint } from '../../../../config/apiConfig';
 
 const Balance = () => {
   
@@ -9,13 +10,36 @@ const Balance = () => {
   const [selectedTransaction, setSelectedTransaction] = useState('all');
   const [filterStatus, setFilterStatus] = useState('');
   const [filterDate, setFilterDate] = useState('');
+  const [baLance, setBalance] = useState([]);
+
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    fetch(endpoint.balance.url,{
+      method: endpoint.balance.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data === 1000){
+        setBalance(data.result);
+      }else{
+        console.error('loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('Loi ket noi', error)
+    })
+  },[])
 
   const handleTransactionChange = (event) => {
     setSelectedTransaction(event.target.value);
   };
 
 
-  const handleFilterItem = BalanceData.filter(item =>{
+  const handleFilterItem = baLance.filter(item =>{
 
     const matchesTransaction = 
       selectedTransaction === 'all' ||
@@ -111,12 +135,22 @@ const Balance = () => {
                     <div className="col-xl-2 col-lg-2 col-md-2 balance-th">Số tiền</div>
                     <div className="col-xl-4 col-lg-4 col-md-4 balance-th">Nội dung</div>
                   </div>
-                  {handleFilterItem.map((item, index) =>
-                    <div className="row balance-table-td" key={index}>
-                      <div className="col-xl-1 col-lg-1 col-md-1 balance-td">{index + 1}</div>
-                      <div className="col-xl-5 col-lg-5 col-md-5 balance-td">{item.day} | {item.times}</div>
-                      <div className="col-xl-2 col-lg-2 col-md-2 balance-td">{item.amount.toLocaleString('vi-VN')}</div>
-                      <div className="col-xl-4 col-lg-4 col-md-4 balance-td">{item.content}</div>
+                  {handleFilterItem.length > 0 ? (
+                    handleFilterItem.map((item, index) => (
+                      <div className="row balance-table-td" key={index}>
+                        <div className="col-xl-1 col-lg-1 col-md-1 balance-td">{index + 1}</div>
+                        <div className="col-xl-5 col-lg-5 col-md-5 balance-td">
+                          {item.day} | {item.times}
+                        </div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 balance-td">
+                          {item.amount.toLocaleString('vi-VN')}
+                        </div>
+                        <div className="col-xl-4 col-lg-4 col-md-4 balance-td">{item.content}</div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="row">
+                      <div className="col-xl-12 text-center">Không có dữ liệu</div>
                     </div>
                   )}
                 </div>

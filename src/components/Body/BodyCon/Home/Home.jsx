@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { data } from '../../../DataLocal/HomeData'
 import { dataDeposit } from '../../../DataLocal/HomeData'
-import { ticket_activity } from '../../../DataLocal/HomeData'
+// import { ticket_activity } from '../../../DataLocal/HomeData'
 
 import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Scatter } from 'recharts';
 import { endpoint } from '../../../../config/apiConfig'
@@ -12,6 +12,7 @@ const Home = () => {
   const [bougth, setBougth] = useState(null);
   const [month, setMonth] = useState(255000);
   const [used, setUsed] = useState(15);
+  const [ticket_activity, setTicket_activity] = useState([]);
 
   const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
   const formatHour = (tick) => `${tick}h`;
@@ -38,6 +39,28 @@ const Home = () => {
       console.log('Loi ket noi', error)
     })
   }, [])
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    fetch(endpoint.ticket_activity.url,{
+      method: endpoint.ticket_activity.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setTicket_activity(data.result);
+      }else{
+        console.error('Loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('loi ket noi', error)
+    })
+  },[])
 
   return (
     <div className='container'>
@@ -110,20 +133,21 @@ const Home = () => {
                   <div className="container">
                     <div className="row">
                       <div className="col-xl-4 col-lg-4 col-md-4">
-                        <span className='data-th'>Ngày nạp</span>
+                        <span className='data-th'>Tên vé</span>
                       </div>
                       <div className="col-xl-4 col-lg-4 col-md-4">
-                        <span className='data-th'>Giờ vào</span>
+                        <span className='data-th'>Số lượt</span>
                       </div>
                       <div className="col-xl-4 col-lg-4 col-md-4">
-                        <span className='data-th'>Giờ ra</span>
+                        <span className='data-th'>Thời gian gần nhất</span>
                       </div>
 
                       <div className="container">
-                        {ticket_activity.map((activity, index) => 
+                      {ticket_activity.length > 0 ? (
+                        ticket_activity.map((activity, index) => (
                           <div className="row" key={index}>
                             <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{activity.day}</span>
+                              <span className='data-td'>{activity.day}</span>
                             </div>
                             <div className="col-xl-4 col-lg-4 col-md-4">
                               <span className='data-td'>{activity.hour_in}</span>
@@ -132,7 +156,12 @@ const Home = () => {
                               <span className='data-td'>{activity.hour_out}</span>
                             </div>
                           </div>
-                        )}
+                        ))
+                      ) : (
+                        <div className="text-center">
+                          <span className='data-empty'>Không có dữ liệu</span>
+                        </div>
+                      )}
                       </div>
                     </div>
                   </div>

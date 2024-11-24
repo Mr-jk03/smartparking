@@ -69,3 +69,16 @@
     background-color: #eb5d04;
     box-shadow: 0px 4px 4px var(--box-shadow);
 }
+
+
+.span-total-money{
+    height: auto;
+    width: 100%;
+    padding: 2px;
+    display: inline-block;
+    text-align: end;
+    margin: 10px 0px;
+    font-size: 25px;
+    font-weight: bold;
+    
+}

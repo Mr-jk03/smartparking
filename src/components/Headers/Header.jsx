@@ -12,10 +12,13 @@ import { endpoint } from '../../config/apiConfig';
 const Header = () => {
 
     const [inputValues, setInputValues] = useState('');
+    const [quantityCart, setQuantityCart] = useState();
+
+
     useEffect(() =>{
         const token = localStorage.getItem('token');
-        fetch(endpoint.balance.url, {
-            method: endpoint.balance.method,
+        fetch(endpoint.wallet.url, {
+            method: endpoint.wallet.method,
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -32,6 +35,28 @@ const Header = () => {
         })
         .catch(error =>{
             console.log("loi ket noi", error)
+        })
+    },[])
+
+    useEffect(() =>{
+        const token = localStorage.getItem('token');
+        fetch(endpoint.cart_quantity.url,{
+            method: endpoint.cart_quantity.method,
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.code === 1000){
+                setQuantityCart(data.result.quantity)
+            }else{
+                console.error("Loi khi lay du lieu")
+            }
+        })
+        .catch(error =>{
+            console.log('Loi ket noi', error)
         })
     },[])
 
@@ -68,8 +93,11 @@ const Header = () => {
                         <Link  className='i-chil2'>
                             <IoNotificationsCircle />
                         </Link>
-                        <Link to={'/cart'}>
-                            <FaCartShopping />
+                        <Link to={'/cart'} className='cart-qtt'>
+                            <FaCartShopping/>
+                            <div className="count-cart">
+                                <span>{quantityCart}</span>
+                            </div>
                         </Link>
                     </div>
                 </div>
