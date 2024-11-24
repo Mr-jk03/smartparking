@@ -67,9 +67,21 @@ export const endpoint = {
         url:(categoryId) => baseApi + `/ticket/cart/${categoryId}`,
         method: "DELETE"
     },
-    deposit:{ /*Nạp tiền */
+    deposit:{ /*Nạp tiền --đã xong*/
         url: baseApi + "/vault/deposit",
         method: "POST"
+    },
+    recent_deposit:{ /*Nạp tiền gần đây --đã xong*/
+        url: baseApi + "/vault/deposit/history",
+        method: "GET"
+    },
+    usetime_in_month:{ /*Đếm số lần sử dụng vé trong tháng */
+        url: baseApi +"/ticket/count/use-times-in-month",
+        method: "GET"
+    },
+    use_in_month:{ /*Tiêu dùng trong tháng */
+        url: baseApi + "/vault/fluctuation/use-in-month",
+        method: "GET"
     }
     
 }

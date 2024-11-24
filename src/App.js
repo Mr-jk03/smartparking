@@ -12,6 +12,7 @@ import Ticketdetailsbuyed from './components/Body/BodyCon/Ticketdetailsbuyed/Tic
 import InoutHistory from './components/Body/BodyCon/InoutHistory/InoutHistory';
 import ListQR from './components/Body/BodyCon/ListQR/ListQR';
 import { WalletProvider } from './components/WalletContext/WalletContext';
+import Pay from './components/Body/BodyCon/Pay/Pay'
 
 let token = localStorage.getItem('token');
 
@@ -55,6 +56,7 @@ function App() {
             <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />
             <Route path='/inouthistory' element={<InoutHistory />}/>
             <Route path='/listqr' element={<ListQR />}/>
+            <Route path='/pay' element={<Pay />}/>
           </>
         ) : (
           <>

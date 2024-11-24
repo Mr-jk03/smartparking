@@ -237,7 +237,9 @@ const Cart = () => {
           Tổng số tiền: <span>{totalAmount.toLocaleString()} </span> <sup>đ</sup>
         </span>
         <div className="wrapper-pay">
-          <button className="btn-pay">Thanh toán</button>
+          <button className="btn-pay">
+            <Link to={'/pay'}>Thanh toán</Link>
+          </button>
         </div>
       </div>
     </div>

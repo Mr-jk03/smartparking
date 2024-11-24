@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { data } from '../../../DataLocal/HomeData'
-import { dataDeposit } from '../../../DataLocal/HomeData'
+// import { dataDeposit } from '../../../DataLocal/HomeData'
 // import { ticket_activity } from '../../../DataLocal/HomeData'
 
 import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Scatter } from 'recharts';
@@ -10,9 +10,10 @@ import { endpoint } from '../../../../config/apiConfig'
 const Home = () => {
 
   const [bougth, setBougth] = useState(null);
-  const [month, setMonth] = useState(255000);
-  const [used, setUsed] = useState(15);
+  const [month, setMonth] = useState();
+  const [used, setUsed] = useState();
   const [ticket_activity, setTicket_activity] = useState([]);
+  const [dataDeposit, setDataDeposit] = useState([]);
 
   const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
   const formatHour = (tick) => `${tick}h`;
@@ -62,6 +63,72 @@ const Home = () => {
     })
   },[])
 
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    fetch(endpoint.usetime_in_month.url,{
+      method: endpoint.usetime_in_month.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setUsed(data.result)
+      }else{
+        console.error('Loi khi lay du lieu')
+      }
+    })
+    .catch(err =>{
+      console.log('loi ket noi', err);
+    })
+  },[])
+
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    fetch(endpoint.use_in_month.url,{
+      method: endpoint.use_in_month.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setMonth(data.result);
+      }else{
+        console.error('Loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('loi ket noi', error)
+    })
+  },[])
+
+  useEffect(() =>{
+    const token = localStorage.getItem('token');
+    fetch(endpoint.recent_deposit.url,{
+      method: endpoint.recent_deposit.method,
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      if(data.code === 1000){
+        setDataDeposit(data.result);
+      }else{
+        console.error('loi khi lay du lieu')
+      }
+    })
+    .catch(error =>{
+      console.log('loi ket noi', error)
+    })
+  },[])
+
   return (
     <div className='container'>
           <div className='row'>
@@ -99,23 +166,23 @@ const Home = () => {
                         <span className='data-th'>Ngày nạp</span>
                       </div>
                       <div className="col-xl-4 col-lg-4 col-md-4">
-                        <span className='data-th'>Giờ nạp</span>
+                        <span className='data-th'>Số tiền</span>
                       </div>
                       <div className="col-xl-4 col-lg-4 col-md-4">
-                        <span className='data-th'>Số tiền</span>
+                        <span className='data-th'>Trạng thái</span>
                       </div>
 
                       <div className="container">
                       {dataDeposit.map((transaction, index) => 
                         <div className="row" key={index}>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{transaction.day}</span>
+                            <span className='data-td'>{transaction.time}</span>
                           </div>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{transaction.hour}</span>
+                            <span className='data-td'>{transaction.amount.toLocaleString('vi-VN')}</span>
                           </div>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{transaction.amount.toLocaleString()}</span>
+                            <span className='data-td'>{transaction.status.toLocaleString()}</span>
                           </div>
                         </div>
                         )}
