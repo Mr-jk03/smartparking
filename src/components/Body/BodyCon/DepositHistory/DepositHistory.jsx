@@ -11,39 +11,39 @@ const DepositHistory = () => {
   const [filterDate, setFilterDate] = useState('');
 
 
-  useEffect(() =>{
+  useEffect(() => {
 
     const token = localStorage.getItem('token');
 
     fetch(endpoint.depositHistory.url, {
-      method:endpoint.depositHistory.method,
-      headers:{
+      method: endpoint.depositHistory.method,
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(responsive => responsive.json())
-    .then(data => {
-      if(data.code === 1000){
-        setDepositHistory(data.result)
-      }else{
-        console.error('Loi khi lay su lieu')
-      }
-    })
-    .catch(error =>{
-      console.log('Loi ket noi', error)
-    })
+      .then(responsive => responsive.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setDepositHistory(data.result)
+        } else {
+          console.error('Loi khi lay su lieu')
+        }
+      })
+      .catch(error => {
+        console.log('Loi ket noi', error)
+      })
   }, [])
 
 
   // const totalLoaded = deponsitHistory
   //   .filter((item) => item.statusClass === 'success')
   //   .reduce((total, item) => total + item.amount, 0);
-  
+
   const totalSuccess = deponsitHistory
     .filter((item) => item.statusClass === 'dp-history-loaded')
     .reduce((total, item) => total + item.amount, 0);
-  
+
   const totalPending = deponsitHistory
     .filter((item) => item.statusClass === 'pending')
     .reduce((total, item) => total + item.amount, 0);
@@ -91,18 +91,18 @@ const DepositHistory = () => {
             <div className="container">
               <div className="row">
                 <div className='filter-1'>
-                  <input 
-                    type="date" 
-                    value={filterDate} 
-                    onChange={e => setFilterDate(e.target.value)} 
+                  <input
+                    type="date"
+                    value={filterDate}
+                    onChange={e => setFilterDate(e.target.value)}
                   />
                   {/* <button>
                     <IoIosSearch />
                   </button> */}
                 </div>
                 <div className='filter-1'>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder='Trạng thái'
                     value={filterStatus}
                     onChange={e => setFilterStatus(e.target.value)}
@@ -142,10 +142,10 @@ const DepositHistory = () => {
                         filterDeponsitHistory.map((item, index) => (
                           <div className="row mg-row" key={index}>
                             <div className="col-xl-1 col-lg-1 col-md-1 dps-history-td">
-                              <span>{item.stt}</span>
+                              <span>{index + 1}</span>
                             </div>
                             <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
-                              <span>{item.date}</span>
+                              <span>{item.time}</span>
                             </div>
                             <div className="col-xl-2 col-lg-2 col-md-2 dps-history-td">
                               <span>{item.amount.toLocaleString('vi-VN')}</span>

@@ -42,7 +42,7 @@ const Cart = () => {
 
   // Gửi yêu cầu cập nhật số lượng đến API
   const updateQuantityAPI = (categoryId, quantity) => {
-    const body ={
+    const body = {
       ticketId: categoryId,
       quantity: quantity
     }
@@ -126,30 +126,30 @@ const Cart = () => {
     const token = localStorage.getItem("token");
     fetch(endpoint.delete_item_cart.url(categoryId), // Truyền categoryId vào đây
       {
-        method: endpoint.delete_item_cart.method, 
+        method: endpoint.delete_item_cart.method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         }
       }
     )
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.code === 1000) {
-        setCartData((prevCart) => {
-          const updatedCart = prevCart.filter(item => item.categoryId !== categoryId); // Loại bỏ item khỏi giỏ
-          calculateTotal(updatedCart); 
-          return updatedCart;
-        });
-      } else {
-        console.error("Lỗi khi xóa item:", data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Lỗi kết nối:", error);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code === 1000) {
+          setCartData((prevCart) => {
+            const updatedCart = prevCart.filter(item => item.categoryId !== categoryId); // Loại bỏ item khỏi giỏ
+            calculateTotal(updatedCart);
+            return updatedCart;
+          });
+        } else {
+          console.error("Lỗi khi xóa item:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi kết nối:", error);
+      });
   };
-  
+
 
   return (
     <div className="wrapper-cart">
@@ -237,9 +237,11 @@ const Cart = () => {
           Tổng số tiền: <span>{totalAmount.toLocaleString()} </span> <sup>đ</sup>
         </span>
         <div className="wrapper-pay">
-          <button className="btn-pay">
-            <Link to={'/pay'}>Thanh toán</Link>
-          </button>
+          <Link to={'/pay'}>
+            <button className="btn-pay">
+              Thanh toán
+            </button>
+          </Link>
         </div>
       </div>
     </div>
