@@ -6,6 +6,21 @@ import { FaEye } from "react-icons/fa";
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa6';
+const convertDate = (date) => {
+  console.log(date)
+  let split = date.split('-');
+  console.log(split)
+  return `${split[2]}/${split[1]}/${split[0]}`;
+}
+
+const getDate = () => {
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1; // Tháng bắt đầu từ 0, cần
+  const year = today.getFullYear();
+
+  return `${year}-${month}-${day}`;
+}
 
 const DepositHistory = () => {
   const [deponsitHistory, setDepositHistory] = useState([]);
@@ -13,12 +28,21 @@ const DepositHistory = () => {
   const [filterDate, setFilterDate] = useState('');
   const [approved, setApproved] = useState(0)
   const [waiting, setWaiting] = useState(0)
+  const [date, setDate] = useState(getDate())
+  const [page, setPage] = useState(1)
+  const [status, setStatus] = useState(null)
 
-  useEffect(() => {
+  const getParam = () => {
+    let param = `?page=${page}&date=${convertDate(date)}`
+    if (status)
+      param += `&status=${status}`
+    return param
+  }
 
+  const callHistory = () => {
     const token = localStorage.getItem('token');
 
-    fetch(endpoint.depositHistory.url, {
+    fetch(endpoint.depositHistory.url + `${getParam()}`, {
       method: endpoint.depositHistory.method,
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +64,11 @@ const DepositHistory = () => {
       .catch(error => {
         console.log('Loi ket noi', error)
       })
-  }, [])
+  }
+
+  useEffect(() => {
+    callHistory()
+  }, [date, page, status])
 
   useEffect(() => {
 
@@ -156,6 +184,17 @@ const DepositHistory = () => {
     (!filterDate || item.date === filterDate.split('-').reverse().join('-')) // đổi định dạng ngày để so sánh
   );
 
+  const handleChaneDate = (event) => {
+    setDate(event.target.value)
+  }
+
+  const handleChangeStatus = (event) => {
+    if (event.target.value === "all")
+      setStatus(null)
+    else
+      setStatus(event.target.value)
+  }
+
   return (
     <div className='wrapper-dp-history'>
       <div className="container">
@@ -190,20 +229,20 @@ const DepositHistory = () => {
                 <div className='filter-1'>
                   <input
                     type="date"
-                    value={filterDate}
-                    onChange={e => setFilterDate(e.target.value)}
+                    value={date}
+                    onChange={handleChaneDate}
                   />
                   {/* <button>
                     <IoIosSearch />
                   </button> */}
                 </div>
                 <div className='filter-1'>
-                  <input
-                    type="text"
-                    placeholder='Trạng thái'
-                    value={filterStatus}
-                    onChange={e => setFilterStatus(e.target.value)}
-                  />
+                  <select name="status" id="status" onChange={handleChangeStatus}>
+                    <option value="all">Tất cả</option>
+                    <option value="approved">Đã duyệt</option>
+                    <option value="canceled">Đã huỷ</option>
+                    <option value="wait">Chờ duyệt</option>
+                  </select>
                 </div>
               </div>
             </div>

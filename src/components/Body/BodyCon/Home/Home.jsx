@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
-import { data } from '../../../DataLocal/HomeData'
+// import { data } from '../../../DataLocal/HomeData'
 // import { dataDeposit } from '../../../DataLocal/HomeData'
 // import { ticket_activity } from '../../../DataLocal/HomeData'
 
@@ -15,6 +15,7 @@ const Home = () => {
   const [used, setUsed] = useState();
   const [ticket_activity, setTicket_activity] = useState([]);
   const [dataDeposit, setDataDeposit] = useState([]);
+  const [dataChart, setDataChart] = useState([]);
 
   const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
   const formatHour = (tick) => `${tick}h`;
@@ -33,6 +34,32 @@ const Home = () => {
       .then(data => {
         if (data.code === 1000) {
           setBougth(data.result);
+        } else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
+      .catch(error => {
+        console.log('Loi ket noi', error)
+      })
+  }, [])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch(endpoint.chartFluctuation.url, {
+      method: endpoint.chartFluctuation.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setDataChart(data.result);
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -262,14 +289,13 @@ const Home = () => {
         <div className="col-xl-12 col-lg-12 chars">
           <ResponsiveContainer width="100%" height={400}>
             <ComposedChart
-              data={data}
+              data={dataChart}
               margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="day"
                 name="Ngày nạp"
-                tickFormatter={formatDay}
               />
               <YAxis
                 dataKey="amount"
@@ -286,8 +312,8 @@ const Home = () => {
                 stroke="#8884d8"
               />
               <Scatter
-                dataKey="hour"
-                name="Giờ nạp"
+                dataKey="day"
+                name="Ngày nạp"
                 fill="#82ca9d"
                 shape="circle"
               />

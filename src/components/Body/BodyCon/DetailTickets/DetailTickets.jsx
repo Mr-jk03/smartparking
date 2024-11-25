@@ -117,15 +117,28 @@ const DetailTickets = ({ dispatch }) => {
                   </span>
                   <span>Loại phương tiện: {vehicle}</span>
                   <span>Thời gian: {ticketData.duration}</span>
-                  <span>Lưu ý: </span>
-                  <textarea
-                    className="note-ticket"
-                    readOnly
-                    name=""
-                    id=""
-                  >
-                    {ticketData.note}
-                  </textarea>
+                  <div>
+                    <div>
+                      <span>
+                        Ngày bắt đầu
+                      </span>
+                      <input type="date" />
+                    </div>
+                    <div>
+                      <span>
+                        Ngày kết thúc
+                      </span>
+                      <input type="date" />
+                    </div>
+                    <div style={{ display: "block", overflowY: "scroll", height: "100px" }}>
+                      <div>còn trống</div>
+                      <span>25/11/2024: 5</span>
+                      <span>26/11/2024: 7</span>
+                      <span>27/11/2024: 9</span>
+                      <span>28/11/2024: 11</span>
+                      <span>29/11/2024: 75</span>
+                    </div>
+                  </div>
                   <div className="ft-info">
                     <div className="row info-btn">
                       <div className="col-xl-5">

@@ -15,14 +15,23 @@ const Mytickets = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedTicketIndex, setSelectedTicketIndex] = useState(null);
 
+  const [page, setPage] = useState(1)
+  const [vehicle, setVehicle] = useState("all")
+  const [status, setStatus] = useState("all")
+
+  const getParam = () => {
+    return `?page=${page}&vehicle=${vehicle}&status=${status}`
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch(endpoint.myTicket.url, {
+    fetch(endpoint.myTicket.url + getParam(), {
       method: endpoint.myTicket.method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      }
+      },
+
     })
       .then(response => response.json())
       .then(data => {
@@ -39,7 +48,7 @@ const Mytickets = () => {
       .catch(error => {
         console.log('Lỗi kết nối', error);
       });
-  }, []);
+  }, [page, vehicle, status]);
 
   const filterTickets = myticketData.filter((item) =>
     (selectedStatus ? item.status === selectedStatus : true) &&
@@ -56,6 +65,13 @@ const Mytickets = () => {
     setSelectedTicketIndex(null);
   };
 
+  const handleChangeStatus = (event) => {
+    setStatus(event.target.value)
+  }
+  const handleChangeVehicle = (event) => {
+    setVehicle(event.target.value)
+  }
+
   return (
     <div className='wrapper-myticket'>
       <div className="container">
@@ -71,16 +87,15 @@ const Mytickets = () => {
                 <input type="text" placeholder='Tìm kiếm vé...' />
               </div>
               <div className="mytk-filter">
-                <select onChange={(e) => setSelectedStatus(e.target.value)}>
-                  <option value="">--Trạng thái--</option>
-                  <option value="Đã sử dụng">Đã sử dụng</option>
-                  <option value="Chưa sử dụng">Chưa sử dụng</option>
-                  <option value="Bị huỷ">Bị huỷ</option>
+                <select onChange={handleChangeStatus}>
+                  <option value="all">--Trạng thái--</option>
+                  <option value="using">Đang sử dụng</option>
+                  <option value="expired">Đã hết hạn</option>
                 </select>
-                <select onChange={(e) => setSelectVehical(e.target.value)}>
-                  <option value="">--Phương tiện--</option>
-                  <option value="Xe máy">Xe máy</option>
-                  <option value="Ô tô">Ô tô</option>
+                <select onChange={handleChangeVehicle}>
+                  <option value="all">--Phương tiện--</option>
+                  <option value="motorbike">Xe máy</option>
+                  <option value="car">Ô tô</option>
                 </select>
               </div>
 

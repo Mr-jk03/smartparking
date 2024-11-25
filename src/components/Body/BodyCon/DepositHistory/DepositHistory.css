@@ -63,7 +63,7 @@
     align-items: center; 
 }
 
-.filter-1 input{
+.filter-1 input, .filter-1 select{
     border: none;
     border-radius: 5px;
     height: 38px;

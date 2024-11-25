@@ -18,7 +18,7 @@ export const endpoint = {
         url: baseApi + "/"
     },
     depositHistory: { /* Lịch sử nạp -- đã làm xong */
-        url: baseApi + "/vault/deposit/history?date=25/11/2024",
+        url: baseApi + "/vault/deposit/history",
         method: "GET"
     },
     account: { /* Thông tin user --đã xong*/
@@ -26,7 +26,7 @@ export const endpoint = {
         method: "GET"
     },
     myTicket: { /*đã xong */
-        url: baseApi + "/ticket/all?page=1",
+        url: baseApi + "/ticket/all",
         method: "GET"
     },
     buyTicketBikes: { /*---đã xong */
@@ -101,6 +101,10 @@ export const endpoint = {
     refreshTokenApi: {
         url: baseApi + "/identity/auth/refresh",
         method: "POST"
+    },
+    chartFluctuation: {
+        url: baseApi + "/vault/fluctuation/fluctuation-in-30-day",
+        method: "GET"
     }
 
 }
