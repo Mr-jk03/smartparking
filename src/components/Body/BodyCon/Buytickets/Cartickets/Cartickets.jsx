@@ -3,32 +3,37 @@ import './Cartickets.css';
 import { Link } from 'react-router-dom';
 // import { cartTicketData } from '../../../../DataLocal/TicketsData';
 import { FaCarSide } from "react-icons/fa";
-import { endpoint } from '../../../../../config/apiConfig';
+import { endpoint, refreshToken } from '../../../../../config/apiConfig';
+import { toast } from 'react-toastify';
 
 const Cartickets = () => {
 
     const [dataCar, setDataCar] = useState([]);
-    useEffect(() =>{
+    useEffect(() => {
         const token = localStorage.getItem('token');
         fetch(endpoint.buyTicketCar.url, {
             method: endpoint.buyTicketCar.method,
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.code === 1000){
-                setDataCar(data.result);
-            }else{
-                console.error('Loi khi lay du lieu')
-            }
-        })
-        .catch(error =>{
-            console.log("Loi ket noi", error)
-        })
-    },[])
+            .then(res => res.json())
+            .then(data => {
+                if (data.code === 1000) {
+                    setDataCar(data.result);
+                } else if (data.code === 5010) {
+                    refreshToken()
+                } else {
+                    toast.error(data.message, {
+                        position: "top-right"
+                    })
+                }
+            })
+            .catch(error => {
+                console.log("Loi ket noi", error)
+            })
+    }, [])
 
 
     const lemitedCartticketdata = dataCar.slice(0, 4);
@@ -50,7 +55,6 @@ const Cartickets = () => {
 
                                 <div className='detail-btn-buy'>
                                     <Link to={`/detail/car/${item.id}`}>Chi tiết vé</Link>
-                                    <button>Mua ngay</button>
                                 </div>
                             </div>
                         </div>

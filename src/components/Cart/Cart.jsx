@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import { Link } from "react-router-dom";
-import { endpoint } from "../../config/apiConfig";
+import { endpoint, refreshToken } from "../../config/apiConfig";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const [cartData, setCartData] = useState([]);
@@ -23,8 +24,12 @@ const Cart = () => {
         if (data.code === 1000) {
           setCartData(data.result);
           calculateTotal(data.result); // Tính toán tổng số tiền khi nhận được giỏ hàng
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          console.error("Lỗi khi lấy dữ liệu:", data.message);
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch((error) => {
@@ -56,6 +61,19 @@ const Cart = () => {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.code === 1000) {
+
+        }
+        else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
       .catch((error) => {
         console.error("Lỗi khi gọi API cập nhật số lượng:", error);
         return { code: 0, message: "Lỗi kết nối" };
@@ -141,8 +159,12 @@ const Cart = () => {
             calculateTotal(updatedCart);
             return updatedCart;
           });
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          console.error("Lỗi khi xóa item:", data.message);
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch((error) => {

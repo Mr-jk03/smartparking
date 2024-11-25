@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './Balance.css'
 import { useState } from 'react';
 // import { BalanceData } from '../../../DataLocal/BalanceData';
-import { endpoint } from '../../../../config/apiConfig';
+import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast } from 'react-toastify';
 
 const getDate = () => {
@@ -47,9 +47,11 @@ const Balance = () => {
       .then(data => {
         if (data.code === 1000) {
           setBalance(data.result);
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error('loi khi lay du lieu', {
-            position: 'top-right'
+          toast.error(data.message, {
+            position: "top-right"
           })
         }
       })

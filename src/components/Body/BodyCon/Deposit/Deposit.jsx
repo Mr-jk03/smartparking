@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './Deposit.css'
 import { TbAlertTriangleFilled } from "react-icons/tb";
-import { endpoint } from '../../../../config/apiConfig';
+import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { WalletContext } from '../../../WalletContext/WalletContext';
 import { toast } from 'react-toastify';
 
@@ -31,6 +31,12 @@ const Deposit = () => {
         .then((data) => {
           if (data.code === 1000) {
             updateWalletBalance(data.result.balence.toLocaleString('vi-VN'));
+          } else if (data.code === 5010) {
+            refreshToken()
+          } else {
+            toast.error(data.message, {
+              position: "top-right"
+            })
           }
         })
         .catch((error) => console.error('Lỗi khi cập nhật số dư', error));
@@ -67,8 +73,12 @@ const Deposit = () => {
           const { linkPayment } = data.result;
 
           window.location.href = linkPayment;
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error(data.message, { position: "top-right" });
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch(error => {

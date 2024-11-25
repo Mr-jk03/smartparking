@@ -3,7 +3,7 @@ import './DepositHistory.css';
 import { IoIosSearch } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 // import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
-import { endpoint } from '../../../../config/apiConfig';
+import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa6';
 
@@ -29,8 +29,12 @@ const DepositHistory = () => {
       .then(data => {
         if (data.code === 1000) {
           setDepositHistory(data.result)
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          console.error('Loi khi lay su lieu')
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch(error => {
@@ -53,8 +57,12 @@ const DepositHistory = () => {
       .then(data => {
         if (data.code === 1000) {
           setWaiting(data.result)
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error(data.message, { position: "top-right" })
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch(error => {
@@ -77,8 +85,12 @@ const DepositHistory = () => {
       .then(data => {
         if (data.code === 1000) {
           setApproved(data.result)
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error(data.message, { position: "top-right" })
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch(error => {
@@ -107,8 +119,12 @@ const DepositHistory = () => {
             return item;
           })
           setDepositHistory(newHistory)
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error(data.message, { position: "top-right" })
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch(error => {

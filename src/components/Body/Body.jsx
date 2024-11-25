@@ -4,7 +4,7 @@ import Menu from './Menu/Menu'
 import BodyCon from './BodyCon/BodyCon'
 import { Navigate, useParams } from 'react-router-dom'
 import { WalletContext } from '../WalletContext/WalletContext';
-import { endpoint } from '../../config/apiConfig'
+import { endpoint, refreshToken } from '../../config/apiConfig'
 import { toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
@@ -37,6 +37,12 @@ const Body = ({ onLogOut }) => {
                 .then((data) => {
                     if (data.code === 1000) {
                         updateWalletBalance(data.result.balence.toLocaleString('vi-VN'));
+                    } else if (data.code === 5010) {
+                        refreshToken()
+                    } else {
+                        toast.error(data.message, {
+                            position: "top-right"
+                        })
                     }
                 })
                 .catch((error) => console.error('Lỗi khi cập nhật số dư', error));

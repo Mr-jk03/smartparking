@@ -11,10 +11,10 @@ import { endpoint } from '../../../config/apiConfig';
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    localStorage.removeItem('refreshed');
     const handleLogin = (e) => {
         e.preventDefault();
-    
+
         if (username === '' && password === '') {
             toast.error('Vui lòng điền đầy đủ thông tin tài khoản!', { position: 'top-right' });
         } else if (username === '') {
@@ -24,7 +24,7 @@ const Login = ({ onLogin }) => {
                 email: username,
                 password
             };
-    
+
             fetch(endpoint.login.url, {
                 method: endpoint.login.method,
                 headers: {
@@ -38,10 +38,10 @@ const Login = ({ onLogin }) => {
                     if (data.code === 1000) {
                         // Lưu token vào localStorage
                         localStorage.setItem('token', data.result.token);
-                        
+
                         // Gọi onLogin để cập nhật trạng thái App
                         onLogin(data.result.token);
-    
+
                         // Chuyển hướng về trang chủ
                         toast.success('Đăng nhập thành công!', { position: 'top-right' });
                     } else {
@@ -54,7 +54,7 @@ const Login = ({ onLogin }) => {
                 });
         }
     };
-    
+
 
     return (
         <div className='wrapper-login'>

@@ -5,7 +5,8 @@ import { IoQrCodeSharp } from "react-icons/io5";
 import QR from '../../../Images/qr.png';
 import { FaWindowClose } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { endpoint } from '../../../../config/apiConfig';
+import { endpoint, refreshToken } from '../../../../config/apiConfig';
+import { toast } from 'react-toastify';
 
 const Mytickets = () => {
   const [myticketData, setMyticketData] = useState([]);
@@ -23,17 +24,21 @@ const Mytickets = () => {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.code === 1000) {
-        setMyticketData(data.result);
-      } else {
-        console.log('Lỗi khi lấy dữ liệu');
-      }
-    })
-    .catch(error => {
-      console.log('Lỗi kết nối', error);
-    });
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setMyticketData(data.result);
+        } else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
+      .catch(error => {
+        console.log('Lỗi kết nối', error);
+      });
   }, []);
 
   const filterTickets = myticketData.filter((item) =>

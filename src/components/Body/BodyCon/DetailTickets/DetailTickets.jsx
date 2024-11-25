@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { FaCartPlus, FaMotorcycle, FaCarSide } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { endpoint } from "../../../../config/apiConfig";
+import { endpoint, refreshToken } from "../../../../config/apiConfig";
 
 const DetailTickets = ({ dispatch }) => {
   const { vehicle, id } = useParams();
@@ -29,8 +29,12 @@ const DetailTickets = ({ dispatch }) => {
         if (data.code === 1000) {
           const ticket = data.result.find((item) => item.id === id);
           setTicketData(ticket);
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          console.error("Lỗi khi lấy dữ liệu");
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch((error) => {
@@ -52,19 +56,21 @@ const DetailTickets = ({ dispatch }) => {
     fetch(endpoint.add_cart.url, {
       method: endpoint.add_cart.method,
       headers: {
-         "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
-        },
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 1000) {
           toast.success("Thêm giỏ hàng thành công", { position: "top-right" });
+        } else if (data.code === 5010) {
+          refreshToken()
         } else {
-          toast.error(data.message || "Lỗi không xác định", {
-            position: "top-right",
-          });
+          toast.error(data.message, {
+            position: "top-right"
+          })
         }
       })
       .catch((error) => {
