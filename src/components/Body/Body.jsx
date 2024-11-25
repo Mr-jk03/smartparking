@@ -2,13 +2,16 @@ import React, { useState, useReducer, useEffect, useContext } from 'react'
 import './Body.css'
 import Menu from './Menu/Menu'
 import BodyCon from './BodyCon/BodyCon'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { WalletContext } from '../WalletContext/WalletContext';
 import { endpoint } from '../../config/apiConfig'
 import { toast, ToastContainer } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 
 const Body = ({ onLogOut }) => {
+    const navigate = useNavigate()
+
     const { id } = useParams();
 
     const { updateWalletBalance } = useContext(WalletContext);
@@ -40,11 +43,23 @@ const Body = ({ onLogOut }) => {
         } else if (responseCode !== '00' || transactionStatus !== '00') {
             toast.error("Nạp tiền thất bại", { position: "top-right" });
         }
+
+        setTimeout(() => {
+            window.history.pushState(null, '', removeQueryParams(window.location.href));
+        }, 500)
+
+
     };
     useEffect(() => {
         checkTransactionStatus();
     }, [])
 
+
+    function removeQueryParams(url) {
+        if (!url) return '';
+        const index = url.indexOf('?');
+        return index !== -1 ? url.substring(0, index) : url;
+    }
 
     const initialState = { activeComponent: "HOME", selectedTicketID: null }
 

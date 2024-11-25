@@ -4,12 +4,15 @@ import { IoIosSearch } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 // import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
 import { endpoint } from '../../../../config/apiConfig';
+import { toast } from 'react-toastify';
+import { FaTrash } from 'react-icons/fa6';
 
 const DepositHistory = () => {
   const [deponsitHistory, setDepositHistory] = useState([]);
   const [filterStatus, setFilterStatus] = useState('');
   const [filterDate, setFilterDate] = useState('');
-
+  const [approved, setApproved] = useState(0)
+  const [waiting, setWaiting] = useState(0)
 
   useEffect(() => {
 
@@ -34,6 +37,84 @@ const DepositHistory = () => {
         console.log('Loi ket noi', error)
       })
   }, [])
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(endpoint.depositWaiting.url, {
+      method: endpoint.depositWaiting.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(responsive => responsive.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setWaiting(data.result)
+        } else {
+          toast.error(data.message, { position: "top-right" })
+        }
+      })
+      .catch(error => {
+        toast.error("Lỗi kết nối", { position: "top-right" })
+      })
+  }, [])
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token');
+
+    fetch(endpoint.depositApproved.url, {
+      method: endpoint.depositApproved.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(responsive => responsive.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setApproved(data.result)
+        } else {
+          toast.error(data.message, { position: "top-right" })
+        }
+      })
+      .catch(error => {
+        toast.error("Lỗi kết nối", { position: "top-right" })
+      })
+  }, [])
+
+  const handleCancle = (id) => {
+    const token = localStorage.getItem('token');
+
+    fetch(endpoint.cancleDeposit.url + "/" + id, {
+      method: endpoint.cancleDeposit.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(responsive => responsive.json())
+      .then(data => {
+        if (data.code === 1000) {
+          const newHistory = deponsitHistory.map(item => {
+            if (item.id === id) {
+              item.status = "Đã huỷ"
+            }
+
+            return item;
+          })
+          setDepositHistory(newHistory)
+        } else {
+          toast.error(data.message, { position: "top-right" })
+        }
+      })
+      .catch(error => {
+        toast.error("Lỗi kết nối", { position: "top-right" })
+      })
+  }
 
 
   // const totalLoaded = deponsitHistory
@@ -75,13 +156,13 @@ const DepositHistory = () => {
                 <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
                   <div className="dp-history-cart bg-htr-c2">
                     <span className='cart-htr-title'>Số tiền đã duyệt thành công</span>
-                    <span className='loaded'>{successfully} <sup>đ</sup></span>
+                    <span className='loaded'>{approved.toLocaleString('vi-VN')} <sup>đ</sup></span>
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
                   <div className="dp-history-cart bg-htr-c3">
                     <span className='cart-htr-title'>Số tiền đang chờ duyệt</span>
-                    <span className='loaded'>{pending} <sup>đ</sup></span>
+                    <span className='loaded'>{waiting.toLocaleString('vi-VN')} <sup>đ</sup></span>
                   </div>
                 </div>
               </div>
@@ -153,11 +234,11 @@ const DepositHistory = () => {
                             <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
                               <span className={item.statusClass}>{item.status}</span>
                             </div>
-                            <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
-                              <button className='btn-history-dp'>
-                                <FaEye />
+                            {item.status === "Chờ duyệt" && <div className="col-xl-3 col-lg-3 col-md-3 dps-history-td">
+                              <button className='btn-history-dp' onClick={() => handleCancle(item.id)}>
+                                <FaTrash />
                               </button>
-                            </div>
+                            </div>}
                           </div>
                         ))
                       ) : (

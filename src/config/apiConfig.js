@@ -28,7 +28,7 @@ export const endpoint = {
         method: "GET"
     },
     buyTicketBikes: { /*---đã xong */
-        url: baseApi + "/ticket/category/find?vehicle=Môtbike",
+        url: baseApi + "/ticket/category/find?vehicle=Motorbike",
         method: "GET"
     },
     buyTicketCar: { /*-- đã xong*/
@@ -40,7 +40,7 @@ export const endpoint = {
         method: "GET"
     },
     balance: { /**--biến động số dư đã xong */
-        url: baseApi + "/vault/fluctuation/",
+        url: baseApi + "/vault/fluctuation",
         method: "GET"
     },
     ticket_activity: { /*--hoạt động vé gần đây --đã xong*/
@@ -82,6 +82,19 @@ export const endpoint = {
     use_in_month: { /*Tiêu dùng trong tháng */
         url: baseApi + "/vault/fluctuation/use-in-month",
         method: "GET"
+    },
+    depositApproved: { /*SỐ tiền đã được duyệt */
+        url: baseApi + "/vault/deposit/approved",
+        method: "GET"
+    },
+
+    depositWaiting: { /*SỐ tiền đang chờ duyệt */
+        url: baseApi + "/vault/deposit/wait",
+        method: "GET"
+    },
+    cancleDeposit: {/*huỷ lệnh nạp */
+        url: baseApi + "/vault/deposit/cancel",
+        method: "PUT"
     }
 
 }

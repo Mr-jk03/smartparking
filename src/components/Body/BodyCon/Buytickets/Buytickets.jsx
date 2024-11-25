@@ -14,12 +14,12 @@ const Buytickets = () => {
   const [formType, setFormType] = useState('moto');
 
 
-  const handleActiveMoto = () =>{
+  const handleActiveMoto = () => {
     setActiveMoto(true);
     setActiveCar(false);
     setFormType('moto');
   }
-  const handleActiveCar = () =>{
+  const handleActiveCar = () => {
     setActiveMoto(false);
     setActiveCar(true);
     setFormType('car');
@@ -30,36 +30,36 @@ const Buytickets = () => {
 
   return (
     <div className='wrapper-buyticket'>
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-2 col-lg-2 col-md-2">
-              <div className="menu-vehicle">
-                <button className='ticket-icon'
-                  onClick={handleActiveMoto}
-                >
-                  <i className={activeMoto ? 'active' : ''}>
-                    <FaMotorcycle />
-                  </i>
-                  Xe máy
-                </button>
-                <button className='ticket-icon'
-                  onClick={handleActiveCar}
-                >
-                  <i className={activeCar ? 'active' : ''}>
-                    <FaCarSide />
-                  </i>
-                  Ô tô
-                </button>
-              </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-xl-2 col-lg-2 col-md-2">
+            <div className="menu-vehicle">
+              <button className='ticket-icon'
+                onClick={handleActiveMoto}
+              >
+                <i className={activeMoto ? 'active' : ''}>
+                  <FaMotorcycle />
+                </i>
+                Xe máy
+              </button>
+              <button className='ticket-icon'
+                onClick={handleActiveCar}
+              >
+                <i className={activeCar ? 'active' : ''}>
+                  <FaCarSide />
+                </i>
+                Ô tô
+              </button>
             </div>
-            <div className="col-xl-10 col-lg-10 col-md-10">
-              <div className="body-vehicle">
-                  {formType === 'moto' && <Mototickets />}
-                  {formType === 'car' && <Cartickets />}
-              </div>
+          </div>
+          <div className="col-xl-10 col-lg-10 col-md-10">
+            <div className="body-vehicle">
+              {formType === 'moto' && <Mototickets />}
+              {formType === 'car' && <Cartickets />}
             </div>
           </div>
         </div>
+      </div>
     </div>
   )
 }

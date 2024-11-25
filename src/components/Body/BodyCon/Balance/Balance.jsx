@@ -3,18 +3,40 @@ import './Balance.css'
 import { useState } from 'react';
 // import { BalanceData } from '../../../DataLocal/BalanceData';
 import { endpoint } from '../../../../config/apiConfig';
+import { toast } from 'react-toastify';
+
+const getDate = () => {
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1; // Tháng bắt đầu từ 0, cần
+  const year = today.getFullYear();
+
+  return `${year}-${month}-${day}`;
+}
+
+const convertDate = (date) => {
+  console.log(date)
+  let split = date.split('-');
+  console.log(split)
+  return `${split[2]}/${split[1]}/${split[0]}`;
+}
 
 const Balance = () => {
 
 
-  const [selectedTransaction, setSelectedTransaction] = useState('all');
-  const [filterStatus, setFilterStatus] = useState('');
-  const [filterDate, setFilterDate] = useState('');
+  const [selectedTransaction, setSelectedTransaction] = useState('credit');
+  const [reson, setReson] = useState('APPROVE');
+  const [filterDate, setFilterDate] = useState(getDate);
   const [baLance, setBalance] = useState([]);
+  const [reload, seReload] = useState(true);
 
   useEffect(() => {
+    if (!reload) {
+      return;
+    }
+    seReload(false);
     const token = localStorage.getItem('token');
-    fetch(endpoint.balance.url, {
+    fetch(endpoint.balance.url + `?date=${convertDate(filterDate)}&type=${reson ? reson : ""}`, {
       method: endpoint.balance.method,
       headers: {
         'Content-Type': 'application/json',
@@ -23,40 +45,43 @@ const Balance = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.code === 1000) {
           setBalance(data.result);
         } else {
-          console.error('loi khi lay du lieu')
+          toast.error('loi khi lay du lieu', {
+            position: 'top-right'
+          })
         }
       })
       .catch(error => {
         console.log('Loi ket noi', error)
       })
-  }, [])
+  }, [reload])
 
-  const handleTransactionChange = (event) => {
-    setSelectedTransaction(event.target.value);
+
+  const handleDateChange = (event) => {
+    setFilterDate(event.target.value)
+    seReload(true);
+  }
+
+
+  const handleTransactionChange = (event, value) => {
+    setSelectedTransaction(value)
+    seReload(true);
   };
 
+  const handleChangeReson = (event, value) => {
+    setReson(value)
+    seReload(true);
+  };
 
-  const handleFilterItem = baLance.filter(item => {
-
-    const matchesTransaction =
-      selectedTransaction === 'all' ||
-      (selectedTransaction === 'deposit' && item.content.includes('Nạp tiền')) ||
-      (selectedTransaction === 'buyTicket' && item.content.includes('Mua vé')) ||
-      (selectedTransaction === 'extendTicket' && item.content.includes('Gia hạn vé'));
-
-
-    const matchesStatus = item.content.toLowerCase().includes(filterStatus.toLowerCase());
-    const formattedDate = filterDate ? filterDate.split('-').reverse().join('-') : '';
-    const matchesDay = !filterDate || item.day === formattedDate;
-
-    return matchesTransaction && matchesStatus && matchesDay
-  })
-
-  console.log(baLance)
+  const convertContant = (contain) => {
+    console.log(contain)
+    if (contain.toUpperCase() === "APPROVE")
+      return "Nạp tiền"
+    else
+      return contain
+  }
 
   return (
     <div className='wrapper-banlance'>
@@ -69,48 +94,52 @@ const Balance = () => {
             <div className="col-xl-12">
               <div className="balance-radio">
                 <div className="group-radio">
-                  <label>
+                  {/* <label>
                     <input type="radio" name="transactionType" value="all"
                       checked={selectedTransaction === 'all'}
                       onChange={handleTransactionChange}
                     />
                     <span>Tất cả</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="transactionType" value="addMoney"
-                      checked={selectedTransaction === 'addMoney'}
-                      onChange={handleTransactionChange}
-                    />
-                    <span>Cộng tiền</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="transactionType" value="subtractMoney"
-                      checked={selectedTransaction === 'subtractMoney'}
-                      onChange={handleTransactionChange}
-                    />
-                    <span>Trừ tiền</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="transactionType" value="deposit"
-                      checked={selectedTransaction === 'deposit'}
-                      onChange={handleTransactionChange}
-                    />
-                    <span>Nạp tiền</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="transactionType" value="buyTicket"
-                      checked={selectedTransaction === 'buyTicket'}
-                      onChange={handleTransactionChange}
-                    />
-                    <span>Mua vé</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="transactionType" value="extendTicket"
-                      checked={selectedTransaction === 'extendTicket'}
-                      onChange={handleTransactionChange}
-                    />
-                    <span>Gia hạn vé</span>
-                  </label>
+                  </label> */}
+                  {/* <div>
+                    <label>
+                      <input type="radio" name="transactionType" value="addMoney"
+                        checked={selectedTransaction === 'credit'}
+                        onChange={(e) => { handleTransactionChange(e, "credit") }}
+                      />
+                      <span>Cộng tiền</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="transactionType" value="subtractMoney"
+                        checked={selectedTransaction === 'debit'}
+                        onChange={(e) => { handleTransactionChange(e, "debit") }}
+                      />
+                      <span>Trừ tiền</span>
+                    </label>
+                  </div> */}
+                  <div>
+                    <label>
+                      <input type="radio" name="reasonTYpe" value="deposit"
+                        checked={reson === 'APPROVE'}
+                        onClick={(e) => { handleChangeReson(e, "APPROVE") }}
+                      />
+                      <span>Nạp tiền</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="reasonTYpe" value="buyTicket"
+                        checked={reson === 'BUY_TICKET'}
+                        onClick={(e) => { handleChangeReson(e, "BUY_TICKET") }}
+                      />
+                      <span>Mua vé</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="reasonTYpe" value="extendTicket"
+                        checked={reson === 'EXTEND_TICKET'}
+                        onClick={(e) => { handleChangeReson(e, "EXTEND_TICKET") }}
+                      />
+                      <span>Gia hạn vé</span>
+                    </label>
+                  </div>
                 </div>
 
               </div>
@@ -119,15 +148,15 @@ const Balance = () => {
               <div className="balance-filter">
                 <input type="date"
                   value={filterDate}
-                  onChange={(e) => setFilterDate(e.target.value)}
+                  onChange={handleDateChange}
                 />
               </div>
-              <div className="balance-filter">
+              {/* <div className="balance-filter">
                 <input type="text" placeholder='Tìm kiếm theo trạng thái'
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
+                  value={reson}
+                // onChange={(e) => handleDateChange(e.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
             <div className="col-xl-12 balance-table">
               <div className="container">
@@ -147,7 +176,7 @@ const Balance = () => {
                       <div className="col-xl-2 col-lg-2 col-md-2 balance-td">
                         {item.amount.toLocaleString('vi-VN')}
                       </div>
-                      <div className="col-xl-4 col-lg-4 col-md-4 balance-td">{item.contant}</div>
+                      <div className="col-xl-4 col-lg-4 col-md-4 balance-td">{convertContant(item.contain)}</div>
                     </div>
                   ))
                 ) : (
