@@ -93,8 +93,11 @@ const Balance = () => {
   const convertContant = (contain) => {
     if (contain?.toUpperCase() === "APPROVE")
       return "Nạp tiền"
-    else
-      return contain
+    else if (contain?.toUpperCase() === "BUY_TICKET")
+      return "Mua vé"
+    else if (contain?.toUpperCase() === "EXTEND_TICKET")
+      return "Gia hạn vé"
+    return contain
   }
 
   return (
