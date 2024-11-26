@@ -71,7 +71,11 @@ const DepositHistory = () => {
   }, [date, page, status])
 
   useEffect(() => {
+    getWait()
 
+  }, [])
+
+  const getWait = () => {
     const token = localStorage.getItem('token');
 
     fetch(endpoint.depositWaiting.url, {
@@ -96,7 +100,7 @@ const DepositHistory = () => {
       .catch(error => {
         toast.error("Lỗi kết nối", { position: "top-right" })
       })
-  }, [])
+  }
 
   useEffect(() => {
 
@@ -139,6 +143,7 @@ const DepositHistory = () => {
       .then(responsive => responsive.json())
       .then(data => {
         if (data.code === 1000) {
+
           const newHistory = deponsitHistory.map(item => {
             if (item.id === id) {
               item.status = "Đã huỷ"
@@ -146,6 +151,7 @@ const DepositHistory = () => {
 
             return item;
           })
+          getWait()
           setDepositHistory(newHistory)
         } else if (data.code === 5010) {
           refreshToken()
@@ -267,7 +273,7 @@ const DepositHistory = () => {
                           <span>Trạng thái</span>
                         </div>
                         <div className="col-xl-3 col-lg-3 col-md-3 dps-history-th">
-                          <span>Xem chi tiết</span>
+                          <span>Hành động</span>
                         </div>
                       </div>
                     </div>
