@@ -6,7 +6,7 @@ import QR from '../../../Images/qr.png';
 import { FaWindowClose } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Mytickets = () => {
   const [myticketData, setMyticketData] = useState([]);
@@ -99,6 +99,7 @@ const Mytickets = () => {
 
   return (
     <div className='wrapper-myticket'>
+      <ToastContainer />
       <div className="container">
         <div className="row">
           <div className="col-xl-12">
@@ -116,6 +117,7 @@ const Mytickets = () => {
                   <option value="all">--Trạng thái--</option>
                   <option value="using">Đang sử dụng</option>
                   <option value="expired">Đã hết hạn</option>
+                  <option value="wait">Chờ sử dụng</option>
                 </select>
                 <select onChange={handleChangeVehicle}>
                   <option value="all">--Phương tiện--</option>
@@ -142,7 +144,7 @@ const Mytickets = () => {
                     filterTickets.map((item, index) => (
                       <div className="container mytk-row" key={index}>
                         <div className="row">
-                          <div className="col-xl-1 col-lg-1 col-md-1">{index + 1}</div>
+                          <div className="col-xl-1 col-lg-1 col-md-1" style={{ textAlign: "right" }}>{index + 1}</div>
                           <div className="col-xl-2 col-lg-2 col-md-2">{item.name}</div>
                           <div className="col-xl-2 col-lg-2 col-md-2">{item.vehicle}</div>
                           <div className="col-xl-3 col-lg-3 col-md-3">{item.status}</div>

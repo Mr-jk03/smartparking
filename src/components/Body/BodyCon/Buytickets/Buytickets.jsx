@@ -1,11 +1,6 @@
 import React from 'react'
 import './Buytickets.css'
-import { useState } from 'react';
 import Mototickets from './Mototickets/Mototickets';
-import Cartickets from './Cartickets/Cartickets';
-
-import { FaMotorcycle } from "react-icons/fa6";
-import { FaCarSide } from "react-icons/fa";
 
 const Buytickets = () => {
   return (

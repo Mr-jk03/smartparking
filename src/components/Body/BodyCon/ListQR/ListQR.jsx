@@ -23,7 +23,6 @@ const ListQR = () => {
   };
 
   const [data, setData] = useState([])
-  const [showQr, setShowQr] = useState(false)
   const [indexQr, setIndexQr] = useState(null)
 
   const { ticketId } = useParams()
@@ -159,9 +158,7 @@ const ListQR = () => {
                       marginSize="5" // Thêm khoảng trắng xung quanh
                     />
                   </div>
-                  <a href={qr} download="qr-code.png" className='a-btn'>
-                    <button className='download-qr' onClick={() => downloadQRCode(data[indexQr].ticketId)}>Tải xuống</button>
-                  </a>
+                  <button className='download-qr' onClick={() => downloadQRCode(data[indexQr].ticketId)}>Tải xuống</button>
                 </div>
               </div>
             </div>
