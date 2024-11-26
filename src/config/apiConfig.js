@@ -117,7 +117,28 @@ export const endpoint = {
     buyTicket: {
         url: baseApi + "/ticket/buy",
         method: "POST"
+    },
+    detailTicket: {
+        url: baseApi + "/ticket",
+        method: "GET"
+    },
+    getListPlateForTicket: {
+        url: baseApi + "/ticket/plate/all",
+        method: "GET"
+    },
+    getFirstQr: {
+        url: baseApi + "/ticket/qr/get-new",
+        method: "GET"
+    },
+    createQr: {
+        url: baseApi + "/ticket/qr/create",
+        method: "POST"
+    },
+    allQR: {
+        url: baseApi + "/ticket/qr/get-all",
+        method: "GET"
     }
+
 
 }
 

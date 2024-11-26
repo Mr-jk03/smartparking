@@ -10,9 +10,9 @@ import { toast } from 'react-toastify';
 
 const Home = () => {
 
-  const [bougth, setBougth] = useState(null);
-  const [month, setMonth] = useState();
-  const [used, setUsed] = useState();
+  const [bougth, setBougth] = useState(0);
+  const [month, setMonth] = useState(0);
+  const [used, setUsed] = useState(0);
   const [ticket_activity, setTicket_activity] = useState([]);
   const [dataDeposit, setDataDeposit] = useState([]);
   const [dataChart, setDataChart] = useState([]);
@@ -191,7 +191,7 @@ const Home = () => {
           <div className='home-header home-month'>
             <span className='title'>Tiêu dùng trong tháng</span>
             <span className='home-value'>
-              {month} <sup>đ</sup>
+              {month.toLocaleString('vi-VN')} <sup>đ</sup>
             </span>
           </div>
         </div>

@@ -104,12 +104,12 @@ const Header = () => {
                             <Link className='i-chil2'>
                                 <IoNotificationsCircle />
                             </Link>
-                            <Link to={'/cart'} className='cart-qtt'>
+                            {/* <Link to={'/cart'} className='cart-qtt'>
                                 <FaCartShopping />
                                 <div className="count-cart">
                                     <span>{quantityCart}</span>
                                 </div>
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
                 </div>

@@ -53,9 +53,9 @@ function App() {
               <Route path='/ticket/detail/:id' element={<Body onLogOut={handleLogOut} />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/account' element={<Account />} />
-              <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />
-              <Route path='/inouthistory' element={<InoutHistory />} />
-              <Route path='/listqr' element={<ListQR />} />
+              <Route path='/ticketdetailbuyed/:ticketId' element={<Ticketdetailsbuyed />} />
+              <Route path='/inouthistory/:ticketId' element={<InoutHistory />} />
+              <Route path='/listqr/:ticketId' element={<ListQR />} />
               <Route path='/pay' element={<Pay />} />
             </>
           ) : (

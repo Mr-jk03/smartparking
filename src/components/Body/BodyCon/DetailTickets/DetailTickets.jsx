@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./DetailTickets.css";
 import { useParams, Link } from "react-router-dom";
 import { FaCartPlus, FaMotorcycle, FaCarSide } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { endpoint, refreshToken } from "../../../../config/apiConfig";
 const getDate = () => {
@@ -109,9 +109,6 @@ const DetailTickets = ({ dispatch }) => {
   }
 
   const handleBuyTicket = (event) => {
-    console.log(startDate);
-    console.log(endDate); // Giải quyết vấn đề với giá trị không đồng bộ
-    // return
     const token = localStorage.getItem("token");
     console.log(endpoint.buyTicket)
     fetch(endpoint.buyTicket.url, {
@@ -144,6 +141,7 @@ const DetailTickets = ({ dispatch }) => {
   }
   return (
     <div className="wrapper-detail">
+      <ToastContainer />
       {ticketData ? (
         <div className="container">
           <div className="row">

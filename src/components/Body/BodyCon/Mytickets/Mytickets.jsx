@@ -13,11 +13,11 @@ const Mytickets = () => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectVehical, setSelectVehical] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedTicketIndex, setSelectedTicketIndex] = useState(null);
 
   const [page, setPage] = useState(1)
   const [vehicle, setVehicle] = useState("all")
   const [status, setStatus] = useState("all")
+  const [containQr, setContainQr] = useState({})
 
   const getParam = () => {
     return `?page=${page}&vehicle=${vehicle}&status=${status}`
@@ -56,13 +56,38 @@ const Mytickets = () => {
   );
 
   const handleShowqr = (index) => {
-    setSelectedTicketIndex(index);
-    setIsVisible(true);
+    console.log(index)
+    console.log(myticketData[index])
+    const token = localStorage.getItem('token');
+    fetch(endpoint.getFirstQr.url + `?ticket=${myticketData[index].ticketId}`, {
+      method: endpoint.getFirstQr.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setContainQr(data.result)
+          setIsVisible(true);
+        } else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
+      .catch(error => {
+        console.log('Lỗi kết nối', error);
+      });
+
   };
 
   const handleCloseQR = () => {
     setIsVisible(false);
-    setSelectedTicketIndex(null);
   };
 
   const handleChangeStatus = (event) => {
@@ -118,15 +143,15 @@ const Mytickets = () => {
                       <div className="container mytk-row" key={index}>
                         <div className="row">
                           <div className="col-xl-1 col-lg-1 col-md-1">{index + 1}</div>
-                          <div className="col-xl-2 col-lg-2 col-md-2">{item.nameTicket}</div>
-                          <div className="col-xl-2 col-lg-2 col-md-2">{item.vehical}</div>
+                          <div className="col-xl-2 col-lg-2 col-md-2">{item.name}</div>
+                          <div className="col-xl-2 col-lg-2 col-md-2">{item.vehicle}</div>
                           <div className="col-xl-3 col-lg-3 col-md-3">{item.status}</div>
-                          <div className="col-xl-4 col-lg-4 col-md-4 mytk-btn-active">
-                            <button className='btn-myticket-eye'>
-                              <Link to={'/ticketdetailbuyed'}>
+                          <div className="col-xl-4 col-lg-4 col-md-4 mytk-btn-active" style={{ display: "flex" }}>
+                            <Link to={'/ticketdetailbuyed/' + item.ticketId}>
+                              <button className='btn-myticket-eye'>
                                 <FaEye />
-                              </Link>
-                            </button>
+                              </button>
+                            </Link>
                             <button onClick={() => handleShowqr(index)}>
                               <IoQrCodeSharp />
                             </button>
@@ -148,14 +173,14 @@ const Mytickets = () => {
         </div>
       </div>
 
-      {isVisible && selectedTicketIndex !== null && (
+      {isVisible && (
         <div className={`popup-qr slide-in`}>
           <div className='myticket-qr'>
             <button onClick={handleCloseQR}>
               <FaWindowClose />
             </button>
             <img src={QR} alt="QR Code" />
-            <p>{filterTickets[selectedTicketIndex].code}</p>
+            <p>{containQr.ticketId}</p>
           </div>
         </div>
       )}
