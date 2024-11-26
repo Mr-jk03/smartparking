@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './DepositHistory.css';
-import { IoIosSearch } from "react-icons/io";
-import { FaEye } from "react-icons/fa";
-// import { deponsitHistory } from "../../../DataLocal/DeponsitHistoryData";
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa6';
 const convertDate = (date) => {
-  console.log(date)
   let split = date.split('-');
-  console.log(split)
   return `${split[2]}/${split[1]}/${split[0]}`;
 }
 
@@ -24,13 +19,15 @@ const getDate = () => {
 
 const DepositHistory = () => {
   const [deponsitHistory, setDepositHistory] = useState([]);
-  const [filterStatus, setFilterStatus] = useState('');
-  const [filterDate, setFilterDate] = useState('');
   const [approved, setApproved] = useState(0)
   const [waiting, setWaiting] = useState(0)
   const [date, setDate] = useState(getDate())
-  const [page, setPage] = useState(1)
+
   const [status, setStatus] = useState(null)
+
+  const [page, setPage] = useState(1)
+  const [maxPage, setMaxPage] = useState(false)
+  const [concat, setConcat] = useState(false)
 
   const getParam = () => {
     let param = `?page=${page}&date=${convertDate(date)}`
@@ -38,6 +35,17 @@ const DepositHistory = () => {
       param += `&status=${status}`
     return param
   }
+
+
+  const handleScroll = (e) => {
+    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight;
+    if (bottom) {
+      if (!maxPage) {
+        setPage(prevPage => prevPage + 1);
+      }
+    }
+  };
+
 
   const callHistory = () => {
     const token = localStorage.getItem('token');
@@ -52,7 +60,17 @@ const DepositHistory = () => {
       .then(responsive => responsive.json())
       .then(data => {
         if (data.code === 1000) {
-          setDepositHistory(data.result)
+          if (data.result.length > 0) {
+            if (concat) {
+              setDepositHistory(pre => [...pre, ...data.result])
+            } else {
+              setDepositHistory(data.result)
+              setConcat(true);
+            }
+
+          } else {
+            setMaxPage(true)
+          }
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -72,7 +90,6 @@ const DepositHistory = () => {
 
   useEffect(() => {
     getWait()
-
   }, [])
 
   const getWait = () => {
@@ -166,31 +183,10 @@ const DepositHistory = () => {
       })
   }
 
-
-  // const totalLoaded = deponsitHistory
-  //   .filter((item) => item.statusClass === 'success')
-  //   .reduce((total, item) => total + item.amount, 0);
-
-  const totalSuccess = deponsitHistory
-    .filter((item) => item.statusClass === 'dp-history-loaded')
-    .reduce((total, item) => total + item.amount, 0);
-
-  const totalPending = deponsitHistory
-    .filter((item) => item.statusClass === 'pending')
-    .reduce((total, item) => total + item.amount, 0);
-
-  // const [loaded] = useState(totalLoaded.toLocaleString('vi-VN'));
-  const [successfully] = useState(totalSuccess.toLocaleString('vi-VN'));
-  const [pending] = useState(totalPending.toLocaleString('vi-VN'));
-
-
-  // Lọc dữ liệu theo trạng thái và ngày
-  const filterDeponsitHistory = deponsitHistory.filter(item =>
-    item.status.toLowerCase().includes(filterStatus.toLowerCase()) &&
-    (!filterDate || item.date === filterDate.split('-').reverse().join('-')) // đổi định dạng ngày để so sánh
-  );
-
   const handleChaneDate = (event) => {
+    setMaxPage(false)
+    setPage(1)
+    setDepositHistory([])
     setDate(event.target.value)
   }
 
@@ -199,6 +195,10 @@ const DepositHistory = () => {
       setStatus(null)
     else
       setStatus(event.target.value)
+
+    setMaxPage(false)
+    setPage(1)
+    setDepositHistory([])
   }
 
   return (
@@ -208,12 +208,6 @@ const DepositHistory = () => {
           <div className="col-xl-12 col-lg-12 col-md-12">
             <div className="container">
               <div className="row">
-                {/* <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
-                  <div className="dp-history-cart bg-htr-c1">
-                    <span className='cart-htr-title'>Tổng số tiền đã nạp</span>
-                    <span className='loaded'>{loaded} <sup>đ</sup></span>
-                  </div>
-                </div> */}
                 <div className="col-xl-4 col-lg-4 col-md-4 dp-htr">
                   <div className="dp-history-cart bg-htr-c2">
                     <span className='cart-htr-title'>Số tiền đã duyệt thành công</span>
@@ -278,10 +272,10 @@ const DepositHistory = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="table-body">
-                    <div className="container">
-                      {filterDeponsitHistory.length > 0 ? (
-                        filterDeponsitHistory.map((item, index) => (
+                  <div className="table-body" onScroll={handleScroll}>
+                    <div className="container "  >
+                      {deponsitHistory.length > 0 ? (
+                        deponsitHistory.map((item, index) => (
                           <div className="row mg-row" key={index}>
                             <div className="col-xl-1 col-lg-1 col-md-1 dps-history-td">
                               <span>{index + 1}</span>
