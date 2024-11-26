@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Headers/Header';
 import Footer from './components/Footer/Footer';
 import Body from './components/Body/Body';
@@ -44,31 +44,31 @@ function App() {
 
   return (
     <WalletProvider>
-    <>
-      {token && <Header />}
-      <Routes>
-        {token ? (
-          <>
-            <Route path='/' element={<Body onLogOut = {handleLogOut}/>} />
-            <Route path='/detail/:vehicle/:id' element={<Body onLogOut = {handleLogOut}/>}/>
-            <Route path='/cart' element={<Cart />}/>
-            <Route path='/account' element={<Account />}/>
-            <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />
-            <Route path='/inouthistory' element={<InoutHistory />}/>
-            <Route path='/listqr' element={<ListQR />}/>
-            <Route path='/pay' element={<Pay />}/>
-          </>
-        ) : (
-          <>
-            <Route path='/login' element={<Login onLogin={handleLogin} />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/' element={<Navigate to="/login" />} />
-          </>
-        )}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      {token && <Footer />}
-    </>
+      <>
+        {token && <Header />}
+        <Routes>
+          {token ? (
+            <>
+              <Route path='/' element={<Body onLogOut={handleLogOut} />} />
+              <Route path='/ticket/detail/:id' element={<Body onLogOut={handleLogOut} />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/account' element={<Account />} />
+              <Route path='/ticketdetailbuyed' element={<Ticketdetailsbuyed />} />
+              <Route path='/inouthistory' element={<InoutHistory />} />
+              <Route path='/listqr' element={<ListQR />} />
+              <Route path='/pay' element={<Pay />} />
+            </>
+          ) : (
+            <>
+              <Route path='/login' element={<Login onLogin={handleLogin} />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/' element={<Navigate to="/login" />} />
+            </>
+          )}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        {token && <Footer />}
+      </>
     </WalletProvider>
   );
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaMotorcycle } from "react-icons/fa6";
 import { endpoint, refreshToken } from '../../../../../config/apiConfig';
 import { toast } from 'react-toastify';
+import { FaCarSide } from 'react-icons/fa';
 
 const Mototickets = () => {
     const [motoTicketData, setmotoTicketData] = useState([]);
@@ -13,8 +14,8 @@ const Mototickets = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch(endpoint.buyTicketBikes.url, {
-            method: endpoint.buyTicketBikes.method,
+        fetch(endpoint.shop.url, {
+            method: endpoint.shop.method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -44,7 +45,8 @@ const Mototickets = () => {
                     <div className="col-xl-6" key={item.id}>
                         <div className="mototicket-cart">
                             <div className='mototicket-cart-icon'>
-                                <FaMotorcycle />
+                                {item.vehicle.toUpperCase() === "CAR" ? <FaCarSide /> : <FaMotorcycle />}
+
                             </div>
                             <div className='mototicket-cart-content'>
                                 <h3>{item.name}</h3>
@@ -53,7 +55,7 @@ const Mototickets = () => {
                                 <span>Số lần: {item.usage}</span>
 
                                 <div className='detail-btn-buy'>
-                                    <Link to={`/detail/motorbike/${item.id}`}>Chi tiết vé</Link>
+                                    <Link to={`/ticket/detail/${item.id}`}>Chi tiết vé</Link>
                                 </div>
                             </div>
                         </div>

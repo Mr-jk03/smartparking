@@ -5,20 +5,50 @@ import { FaCartPlus, FaMotorcycle, FaCarSide } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { endpoint, refreshToken } from "../../../../config/apiConfig";
+const getDate = () => {
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1; // Tháng bắt đầu từ 0, cần
+  const year = today.getFullYear();
+
+  return `${year}-${month}-${day}`;
+}
+
+const convertDate = (date) => {
+  console.log(date)
+  let split = date.split('-');
+  console.log(split)
+  return `${split[2]}/${split[1]}/${split[0]}`;
+}
+
+function addDays(dateString, days) {
+  const [year, month, day] = dateString.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+
+  date.setDate(date.getDate() + days);
+
+  const newYear = date.getFullYear();
+  const newMonth = String(date.getMonth() + 1).padStart(2, '0');
+  const newDay = String(date.getDate()).padStart(2, '0');
+
+  return `${newYear}-${newMonth}-${newDay}`;
+}
+
+const minStart = getDate();
+const maxStart = addDays(minStart, 7)
 
 const DetailTickets = ({ dispatch }) => {
-  const { vehicle, id } = useParams();
+  const { id } = useParams();
   const [ticketData, setTicketData] = useState(null);
+  const [emptyPosition, setEmptyPosition] = useState([]);
+
+  const [startDate, setStartDate] = useState(minStart)
+  const [endDate, setEndDate] = useState(minStart)
 
   useEffect(() => {
-    const api =
-      vehicle === "bike"
-        ? endpoint.buyTicketBikes.url
-        : endpoint.buyTicketCar.url;
-
     const token = localStorage.getItem("token");
-    fetch(api, {
-      method: "GET",
+    fetch(endpoint.infoCategory.url + `/${id}`, {
+      method: endpoint.infoCategory.method,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -27,8 +57,7 @@ const DetailTickets = ({ dispatch }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 1000) {
-          const ticket = data.result.find((item) => item.id === id);
-          setTicketData(ticket);
+          setTicketData(data.result);
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -40,31 +69,22 @@ const DetailTickets = ({ dispatch }) => {
       .catch((error) => {
         console.log("Lỗi kết nối", error);
       });
-  }, [vehicle, id]);
+    getPositionEmpty()
+  }, [id]);
 
-  const handleAddCart = () => {
-    if (!ticketData) {
-      toast.error("Không tìm thấy thông tin vé", { position: "top-right" });
-      return;
-    }
-
-    const body = {
-      ticketId: ticketData.id,
-    };
-    const token = localStorage.getItem('token');
-
-    fetch(endpoint.add_cart.url, {
-      method: endpoint.add_cart.method,
+  const getPositionEmpty = () => {
+    const token = localStorage.getItem("token");
+    fetch(endpoint.getEmptyPosition.url + `?start=${convertDate(startDate)}&ticket=${id}`, {
+      method: endpoint.getEmptyPosition.method,
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 1000) {
-          toast.success("Thêm giỏ hàng thành công", { position: "top-right" });
+          setEmptyPosition(data.result)
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -74,10 +94,19 @@ const DetailTickets = ({ dispatch }) => {
         }
       })
       .catch((error) => {
-        toast.error("Lỗi kết nối", { position: "top-right" });
+        console.log("Lỗi kết nối", error);
       });
-  };
+  }
 
+  const handleChangeStartDate = (event) => {
+    getPositionEmpty()
+    setStartDate(event.target.value)
+    setEndDate(event.target.value)
+  }
+
+  const handleChangeEndDate = (event) => {
+    setEndDate(event.target.value)
+  }
   return (
     <div className="wrapper-detail">
       {ticketData ? (
@@ -98,11 +127,9 @@ const DetailTickets = ({ dispatch }) => {
                 <div className="row">
                   <div className="col-xl-12">
                     <div className="dt-ticket">
-                      {vehicle === "bike" ? (
-                        <FaMotorcycle />
-                      ) : vehicle === "car" ? (
-                        <FaCarSide />
-                      ) : null}
+                      {ticketData.vehicle.toUpperCase() === "CAR" ?
+                        <FaCarSide /> :
+                        <FaMotorcycle />}
                     </div>
                   </div>
                 </div>
@@ -110,50 +137,37 @@ const DetailTickets = ({ dispatch }) => {
             </div>
             <div className="col-xl-6">
               <div className="info-ticket">
-                <div className="container-info">
+                <div className="container-info" style={{ height: "100%" }}>
                   <span>Tên vé: {ticketData.name}</span>
                   <span>
-                    Giá vé: {ticketData.price} <sup>đ</sup>
+                    Giá vé: {ticketData.price.toLocaleString('vi-VN')} <sup>đ</sup>
                   </span>
-                  <span>Loại phương tiện: {vehicle}</span>
+                  {/* <span>Loại phương tiện: {vehicle}</span> */}
                   <span>Thời gian: {ticketData.duration}</span>
                   <div>
-                    <div>
+                    <div className="filter-1">
                       <span>
                         Ngày bắt đầu
                       </span>
-                      <input type="date" />
+                      <input type="date" min={minStart} max={maxStart} value={startDate} onChange={handleChangeStartDate} />
                     </div>
-                    <div>
+                    <div className="filter-1">
                       <span>
                         Ngày kết thúc
                       </span>
-                      <input type="date" />
+                      <input type="date" min={startDate} max={addDays(startDate, 30)} value={endDate} onChange={handleChangeEndDate} />
                     </div>
-                    <div style={{ display: "block", overflowY: "scroll", height: "100px" }}>
-                      <div>còn trống</div>
-                      <span>25/11/2024: 5</span>
-                      <span>26/11/2024: 7</span>
-                      <span>27/11/2024: 9</span>
-                      <span>28/11/2024: 11</span>
-                      <span>29/11/2024: 75</span>
+                    <span>Số vị trí trống</span>
+                    <div style={{ display: "block", overflowY: "scroll", height: "200px", background: "#ececec", padding: "5px" }}>
+                      {emptyPosition.map((item) => {
+                        return <span>{item.date}: {item.quantity}</span>
+                      })}
                     </div>
                   </div>
                   <div className="ft-info">
                     <div className="row info-btn">
                       <div className="col-xl-5">
                         <button className="info-btn-buy">Đặt mua</button>
-                      </div>
-                      <div className="col-xl-7">
-                        <button
-                          className="info-btn-addCart"
-                          onClick={handleAddCart}
-                        >
-                          <i>
-                            <FaCartPlus />
-                          </i>
-                          Thêm vào giỏ hàng
-                        </button>
                       </div>
                     </div>
                   </div>

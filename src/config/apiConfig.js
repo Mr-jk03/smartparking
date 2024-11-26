@@ -29,8 +29,8 @@ export const endpoint = {
         url: baseApi + "/ticket/all",
         method: "GET"
     },
-    buyTicketBikes: { /*---đã xong */
-        url: baseApi + "/ticket/category/find?vehicle=Motorbike",
+    shop: { /*---đã xong */
+        url: baseApi + "/ticket/category/find/all",
         method: "GET"
     },
     buyTicketCar: { /*-- đã xong*/
@@ -104,6 +104,14 @@ export const endpoint = {
     },
     chartFluctuation: {
         url: baseApi + "/vault/fluctuation/fluctuation-in-30-day",
+        method: "GET"
+    },
+    infoCategory: {
+        url: baseApi + "/ticket/category/info",
+        method: "GET"
+    },
+    getEmptyPosition: {
+        url: baseApi + "/ticket/category/empty-position",
         method: "GET"
     }
 
