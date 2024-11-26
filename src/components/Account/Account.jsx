@@ -3,7 +3,7 @@ import './Account.css'
 import { Link } from 'react-router-dom'
 import { FaUserAlt } from "react-icons/fa";
 import { endpoint, refreshToken } from '../../config/apiConfig';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Account = () => {
 
@@ -41,9 +41,37 @@ const Account = () => {
             })
     }, [])
 
+    const handleUpdateInfo = () => {
+        const token = localStorage.getItem('token');
+
+        fetch(endpoint.updateAccount.url, {
+            method: endpoint.updateAccount.method,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ name: nameUser, phone: phoneUser })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 1000) {
+                    toast.success("Cập nhật thành công", { position: "top-right" })
+                } else if (data.code === 5010) {
+                    refreshToken()
+                } else {
+                    toast.error(data.message, {
+                        position: "top-right"
+                    })
+                }
+            })
+            .catch(error => {
+                console.log('Loi ket noi', error);
+            })
+    }
 
     return (
         <div className='wrapper-account'>
+            <ToastContainer />
             <div className="container">
                 <div className="row">
                     <div className="col-xl-12">
@@ -101,7 +129,7 @@ const Account = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button className='btn-save-account'>Lưu</button>
+                                            <button className='btn-save-account' onClick={handleUpdateInfo}>Lưu</button>
                                         </div>
                                     </div>
                                 </div>

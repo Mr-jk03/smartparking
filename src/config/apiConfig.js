@@ -25,6 +25,10 @@ export const endpoint = {
         url: baseApi + "/profile/customer/info",
         method: "GET"
     },
+    updateAccount: { /* Thông tin user --đã xong*/
+        url: baseApi + "/profile/customer",
+        method: "PATCH"
+    },
     myTicket: { /*đã xong */
         url: baseApi + "/ticket/all",
         method: "GET"
