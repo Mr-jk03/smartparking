@@ -9,19 +9,26 @@ import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Mytickets = () => {
+  const [maxPage, setMaxPage] = useState(false)
+  const [concat, setConcat] = useState(false)
   const [myticketData, setMyticketData] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState('');
-  const [selectVehical, setSelectVehical] = useState('');
   const [isVisible, setIsVisible] = useState(false);
 
   const [page, setPage] = useState(1)
   const [vehicle, setVehicle] = useState("all")
-  const [status, setStatus] = useState("all")
   const [containQr, setContainQr] = useState({})
 
   const getParam = () => {
-    return `?page=${page}&vehicle=${vehicle}&status=${status}`
+    return `?page=${page}&vehicle=${vehicle}`
   }
+
+  const handleScroll = (e) => {
+    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight;
+    if (bottom) {
+      if (!maxPage)
+        setPage(prevPage => prevPage + 1);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,7 +43,17 @@ const Mytickets = () => {
       .then(response => response.json())
       .then(data => {
         if (data.code === 1000) {
-          setMyticketData(data.result);
+          if (data.result.length > 0)
+            if (concat) {
+              setMyticketData([...myticketData, ...data.result]);
+            } else {
+              setMyticketData(data.result)
+              setConcat(true);
+            }
+          else {
+            setMaxPage(true)
+          }
+
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -48,16 +65,9 @@ const Mytickets = () => {
       .catch(error => {
         console.log('Lỗi kết nối', error);
       });
-  }, [page, vehicle, status]);
-
-  const filterTickets = myticketData.filter((item) =>
-    (selectedStatus ? item.status === selectedStatus : true) &&
-    (selectVehical ? item.vehical === selectVehical : true)
-  );
+  }, [page, vehicle]);
 
   const handleShowqr = (index) => {
-    console.log(index)
-    console.log(myticketData[index])
     const token = localStorage.getItem('token');
     fetch(endpoint.getFirstQr.url + `?ticket=${myticketData[index].ticketId}`, {
       method: endpoint.getFirstQr.method,
@@ -90,10 +100,10 @@ const Mytickets = () => {
     setIsVisible(false);
   };
 
-  const handleChangeStatus = (event) => {
-    setStatus(event.target.value)
-  }
   const handleChangeVehicle = (event) => {
+    setConcat(false);
+    setPage(1)
+    setMaxPage(false)
     setVehicle(event.target.value)
   }
 
@@ -109,16 +119,8 @@ const Mytickets = () => {
           </div>
           <div className="col-xl-12">
             <div className='myticket-content'>
-              <div className='mytk-input'>
-                <input type="text" placeholder='Tìm kiếm vé...' />
-              </div>
+
               <div className="mytk-filter">
-                <select onChange={handleChangeStatus}>
-                  <option value="all">--Trạng thái--</option>
-                  <option value="using">Đang sử dụng</option>
-                  <option value="expired">Đã hết hạn</option>
-                  <option value="wait">Chờ sử dụng</option>
-                </select>
                 <select onChange={handleChangeVehicle}>
                   <option value="all">--Phương tiện--</option>
                   <option value="motorbike">Xe máy</option>
@@ -131,24 +133,26 @@ const Mytickets = () => {
                   <div className="container">
                     <div className="row">
                       <div className="col-xl-1 col-lg-1 col-md-1">STT</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2">Id</div>
                       <div className="col-xl-2 col-lg-2 col-md-2">Tên vé</div>
                       <div className="col-xl-2 col-lg-2 col-md-2">Loại phương tiện</div>
-                      <div className="col-xl-3 col-lg-3 col-md-3">Trạng thái vé</div>
-                      <div className="col-xl-4 col-lg-4 col-md-4">Thao tác</div>
+                      <div className="col-xl-3 col-lg-3 col-md-3">Ngày sử dụng</div>
+                      <div className="col-xl-2 col-lg-2 col-md-2">Thao tác</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mytk-table-tr">
-                  {filterTickets.length > 0 ? (
-                    filterTickets.map((item, index) => (
+                <div className="mytk-table-tr" onScroll={handleScroll}>
+                  {myticketData.length > 0 ? (
+                    myticketData.map((item, index) => (
                       <div className="container mytk-row" key={index}>
                         <div className="row">
                           <div className="col-xl-1 col-lg-1 col-md-1" style={{ textAlign: "right" }}>{index + 1}</div>
+                          <div className="col-xl-2 col-lg-2 col-md-2">{item.ticketId}</div>
                           <div className="col-xl-2 col-lg-2 col-md-2">{item.name}</div>
-                          <div className="col-xl-2 col-lg-2 col-md-2">{item.vehicle}</div>
-                          <div className="col-xl-3 col-lg-3 col-md-3">{item.status}</div>
-                          <div className="col-xl-4 col-lg-4 col-md-4 mytk-btn-active" style={{ display: "flex" }}>
+                          <div className="col-xl-2 col-lg-2 col-md-2">{item.vehicle === "CAR" ? "Ô tô" : "Xe máy"}</div>
+                          <div className="col-xl-3 col-lg-3 col-md-3">{item.startTime}</div>
+                          <div className="col-xl-2 col-lg-2 col-md-2 mytk-btn-active" style={{ display: "flex" }}>
                             <Link to={'/ticketdetailbuyed/' + item.ticketId}>
                               <button className='btn-myticket-eye'>
                                 <FaEye />
