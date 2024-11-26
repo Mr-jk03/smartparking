@@ -78,6 +78,7 @@ const Balance = () => {
     setMaxPage(false)
     setPage(1)
     setBalance([])
+    setConcat(false)
     setFilterDate(event.target.value)
   }
 
@@ -85,11 +86,12 @@ const Balance = () => {
     setMaxPage(false)
     setPage(1)
     setBalance([])
+    setConcat(false)
     setReson(value)
   };
 
   const convertContant = (contain) => {
-    if (contain.toUpperCase() === "APPROVE")
+    if (contain?.toUpperCase() === "APPROVE")
       return "Nạp tiền"
     else
       return contain
@@ -158,7 +160,7 @@ const Balance = () => {
                           {item.time}
                         </div>
                         <div className="col-xl-2 col-lg-2 col-md-2 balance-td">
-                          {item.amount.toLocaleString('vi-VN')}
+                          {item.amount?.toLocaleString('vi-VN')}
                         </div>
                         <div className="col-xl-4 col-lg-4 col-md-4 balance-td">{convertContant(item.contain)}</div>
                       </div>
