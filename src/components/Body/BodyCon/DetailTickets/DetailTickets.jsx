@@ -107,6 +107,41 @@ const DetailTickets = ({ dispatch }) => {
   const handleChangeEndDate = (event) => {
     setEndDate(event.target.value)
   }
+
+  const handleBuyTicket = (event) => {
+    console.log(startDate);
+    console.log(endDate); // Giải quyết vấn đề với giá trị không đồng bộ
+    // return
+    const token = localStorage.getItem("token");
+    console.log(endpoint.buyTicket)
+    fetch(endpoint.buyTicket.url, {
+      method: endpoint.buyTicket.method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        category: id,
+        startDate: convertDate(startDate),
+        endDate: convertDate(endDate)
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code === 1000) {
+          toast.success("Mua vé thành công", { position: "top-right" })
+        } else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
+      .catch((error) => {
+        console.log("Lỗi kết nối", error);
+      });
+  }
   return (
     <div className="wrapper-detail">
       {ticketData ? (
@@ -167,7 +202,7 @@ const DetailTickets = ({ dispatch }) => {
                   <div className="ft-info">
                     <div className="row info-btn">
                       <div className="col-xl-5">
-                        <button className="info-btn-buy">Đặt mua</button>
+                        <button className="info-btn-buy" onClick={handleBuyTicket} >Đặt mua</button>
                       </div>
                     </div>
                   </div>

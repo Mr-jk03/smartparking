@@ -113,6 +113,10 @@ export const endpoint = {
     getEmptyPosition: {
         url: baseApi + "/ticket/category/empty-position",
         method: "GET"
+    },
+    buyTicket: {
+        url: baseApi + "/ticket/buy",
+        method: "POST"
     }
 
 }
