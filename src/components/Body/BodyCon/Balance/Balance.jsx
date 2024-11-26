@@ -29,7 +29,7 @@ const Balance = () => {
   const [concat, setConcat] = useState(false)
 
   const handleScroll = (e) => {
-    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight;
+    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight + 5;;
     if (bottom) {
       if (!maxPage) {
         setPage(prevPage => prevPage + 1);

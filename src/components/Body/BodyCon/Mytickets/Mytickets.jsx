@@ -7,6 +7,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { toast, ToastContainer } from 'react-toastify';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const Mytickets = () => {
   const [maxPage, setMaxPage] = useState(false)
@@ -23,10 +24,13 @@ const Mytickets = () => {
   }
 
   const handleScroll = (e) => {
-    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight;
+    const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight + 5;
+    console.log("object")
     if (bottom) {
+      console.log("object")
       if (!maxPage)
-        setPage(prevPage => prevPage + 1);
+        console.log("object")
+      setPage(prevPage => prevPage + 1);
     }
   };
 
@@ -53,7 +57,6 @@ const Mytickets = () => {
           else {
             setMaxPage(true)
           }
-
         } else if (data.code === 5010) {
           refreshToken()
         } else {
@@ -185,7 +188,12 @@ const Mytickets = () => {
             <button onClick={handleCloseQR}>
               <FaWindowClose />
             </button>
-            <img src={QR} alt="QR Code" />
+            <QRCodeCanvas
+              value={containQr.contain} // Nội dung được chuyển thành mã QR
+              size={350} // Kích thước mã QR
+              level="H" // Cấp độ sửa lỗi: L, M, Q, H
+              marginSize="5" // Thêm khoảng trắng xung quanh
+            />
             <p>{containQr.ticketId}</p>
           </div>
         </div>
