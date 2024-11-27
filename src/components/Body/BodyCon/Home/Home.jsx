@@ -16,13 +16,10 @@ const Home = () => {
   const [ticket_activity, setTicket_activity] = useState([]);
   const [dataDeposit, setDataDeposit] = useState([]);
   const [dataChart, setDataChart] = useState([]);
-
-  const formatDay = (tick) => new Date(tick).toLocaleDateString("vi-VN");
-  const formatHour = (tick) => `${tick}h`;
+  const [turnTotal, setTurnTotal] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token)
     fetch(endpoint.bougthTicket.url, {
       method: endpoint.bougthTicket.method,
       headers: {
@@ -43,6 +40,35 @@ const Home = () => {
         }
       })
       .catch(error => {
+        console.log(error)
+        console.log('Loi ket noi', error)
+      })
+  }, [])
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    fetch(endpoint.countTurnTotal.url, {
+      method: endpoint.countTurnTotal.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1000) {
+          setTurnTotal(data.result);
+        } else if (data.code === 5010) {
+          refreshToken()
+        } else {
+          toast.error(data.message, {
+            position: "top-right"
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
         console.log('Loi ket noi', error)
       })
   }, [])
@@ -199,7 +225,7 @@ const Home = () => {
           <div className='home-header home-used'>
             <span className='title'>Số lượt sử dụng</span>
             <span className='home-value'>
-              {used} lượt
+              {turnTotal} lượt
             </span>
           </div>
         </div>
@@ -225,12 +251,12 @@ const Home = () => {
                     {dataDeposit.map((transaction, index) =>
                       <div className="row" key={index}>
                         <div className="col-xl-4 col-lg-4 col-md-4">
-                          <span className='data-td'>{transaction.time}</span>
+                          <span className='data-td' style={{ padding: "10px 0" }}>{transaction.time}</span>
                         </div>
                         <div className="col-xl-4 col-lg-4 col-md-4">
-                          <span className='data-td'>{transaction.amount.toLocaleString('vi-VN')}</span>
+                          <span className='data-td' style={{ padding: "10px 0" }}>{transaction.amount.toLocaleString('vi-VN')}</span>
                         </div>
-                        <div className="col-xl-4 col-lg-4 col-md-4">
+                        <div className="col-xl-4 col-lg-4 col-md-4" style={{ padding: "10px 0" }}>
                           <span className='data-td'>{transaction.status.toLocaleString()}</span>
                         </div>
                       </div>
@@ -263,13 +289,13 @@ const Home = () => {
                       ticket_activity.map((activity, index) => (
                         <div className="row" key={index}>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{activity.day}</span>
+                            <span className='data-td' style={{ padding: "10px 0" }}>{activity.ticketName}</span>
                           </div>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{activity.hour_in}</span>
+                            <span className='data-td' style={{ padding: "10px 0" }}>{activity.turn}</span>
                           </div>
                           <div className="col-xl-4 col-lg-4 col-md-4">
-                            <span className='data-td'>{activity.hour_out}</span>
+                            <span className='data-td' style={{ padding: "10px 0" }}>{activity.usedAt}</span>
                           </div>
                         </div>
                       ))

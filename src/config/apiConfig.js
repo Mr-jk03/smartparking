@@ -14,6 +14,10 @@ export const endpoint = {
         url: baseApi + "/ticket/count/purchased",
         method: "GET"
     },
+    countTurnTotal: {  /*Số vé đã mua --đã xong*/
+        url: baseApi + "/ticket/count/total-turn",
+        method: "GET"
+    },
     walletBalance: { /*Số dư ví --đã xong */
         url: baseApi + "/"
     },
@@ -125,6 +129,19 @@ export const endpoint = {
     detailTicket: {
         url: baseApi + "/ticket",
         method: "GET"
+    },
+
+    updatePlate: {
+        url: baseApi + "/ticket/plate",
+        method: "PUT"
+    },
+    getFirstPlateHistory: {
+        url: baseApi + "/ticket/plate/first",
+        method: "GET"
+    },
+    extendTicket: {
+        url: baseApi + "/ticket/extend",
+        method: "PATCH"
     },
     getListPlateForTicket: {
         url: baseApi + "/ticket/plate/all",

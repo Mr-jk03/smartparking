@@ -44,9 +44,13 @@
     margin-top: 30px;
 }
 
+.home-bd-data>.container>.row>* {
+    padding: "10px 0"
+}
+
 .body-table{
     height: auto;
-    max-height: 150px;
+    height: 200px;
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -87,6 +91,7 @@
     font-weight: bold;
     text-align: center;
 }
+
 .data-td{
     height: 100%;
     width: 100%;
