@@ -34,8 +34,11 @@ const Login = ({ onLogin }) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Login API response:", data); // Debug API response
                     if (data.code === 1000) {
+                        if (data.result.manager === true) {
+                            toast.error("Tài khoản không tồn tại")
+                            return
+                        }
                         // Lưu token vào localStorage
                         localStorage.setItem('token', data.result.token);
 

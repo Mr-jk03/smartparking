@@ -13,6 +13,7 @@ import InoutHistory from './components/Body/BodyCon/InoutHistory/InoutHistory';
 import ListQR from './components/Body/BodyCon/ListQR/ListQR';
 import { WalletProvider } from './components/WalletContext/WalletContext';
 import Pay from './components/Body/BodyCon/Pay/Pay'
+import { ToastContainer } from 'react-toastify';
 
 let token = localStorage.getItem('token');
 

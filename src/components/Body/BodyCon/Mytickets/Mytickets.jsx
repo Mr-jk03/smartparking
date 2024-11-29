@@ -25,12 +25,9 @@ const Mytickets = () => {
 
   const handleScroll = (e) => {
     const bottom = e.target.scrollHeight <= e.target.scrollTop + e.target.clientHeight + 5;
-    console.log("object")
     if (bottom) {
-      console.log("object")
       if (!maxPage)
-        console.log("object")
-      setPage(prevPage => prevPage + 1);
+        setPage(prevPage => prevPage + 1);
     }
   };
 

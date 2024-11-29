@@ -6,7 +6,7 @@ import './Home.css'
 
 import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Scatter } from 'recharts';
 import { endpoint, refreshToken } from '../../../../config/apiConfig'
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Home = () => {
 
@@ -206,6 +206,7 @@ const Home = () => {
 
   return (
     <div className='container'>
+      <ToastContainer />
       <div className='row'>
         <div className="col-xl-4 col-lg-4 col-md-4 box-hd">
           <div className='home-header home-bougth'>
