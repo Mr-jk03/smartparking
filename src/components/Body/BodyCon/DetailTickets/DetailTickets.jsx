@@ -7,7 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { endpoint, refreshToken } from "../../../../config/apiConfig";
 const getDate = () => {
   const today = new Date();
-  const day = today.getDate();
+  let day = today.getDate();
+  if (day.toString().length === 1) {
+    day = "0" + day
+  }
   const month = today.getMonth() + 1; // Tháng bắt đầu từ 0, cần
   const year = today.getFullYear();
 
