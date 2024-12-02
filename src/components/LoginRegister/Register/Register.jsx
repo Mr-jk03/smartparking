@@ -27,18 +27,18 @@ const Register = () => {
         }
     };
 
-    const handleSubmit = () =>{
-        if(emailFomat === ''){
-            toast.error('Vui lòng nhập email',{ position: 'top-right'} )
-        }else if(passwordRes === ''){
-            toast.error('Vui lòng nhập mật khẩu', {position: 'top-right'})
-        }else if(confirmPassword === ''){
-            toast.error('Vui lòng xác nhận mật khẩu', {position: 'top-right'})
-        }else if( passwordRes !== confirmPassword){
+    const handleSubmit = () => {
+        if (emailFomat === '') {
+            toast.error('Vui lòng nhập email', { position: 'top-right' })
+        } else if (passwordRes === '') {
+            toast.error('Vui lòng nhập mật khẩu', { position: 'top-right' })
+        } else if (confirmPassword === '') {
+            toast.error('Vui lòng xác nhận mật khẩu', { position: 'top-right' })
+        } else if (passwordRes !== confirmPassword) {
             toast.error('Mật khẩu không khớp', { position: 'top-right' });
             return;
-        }else{
-            const body ={
+        } else {
+            const body = {
                 email: emailFomat,
                 password: passwordRes
             }
@@ -51,13 +51,13 @@ const Register = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if(data.code === 1000){
+                    if (data.code === 1000) {
                         toast.success('Đăng ký thành công', { position: 'top-right' });
-                    }else{
+                    } else {
                         toast.error(data.message, { position: 'top-right' });
                     }
                 })
-                .catch(error =>{
+                .catch(error => {
                     toast.error('Lỗi kết nối', { position: 'top-right' });
                 })
         }
@@ -68,7 +68,7 @@ const Register = () => {
             <ToastContainer style={{ zIndex: 9999 }} />
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center">
-                    <div className="col-xl-6 col-lg-6 col-md-6"> 
+                    <div className="col-xl-6 col-lg-6 col-md-6">
                         <div className="container">
                             <div className="row container-register">
                                 <div className="col-xl-12">
@@ -80,8 +80,8 @@ const Register = () => {
                                 <div className="col-xl-12">
                                     <div className="register-input">
                                         <div className='ip-relative'>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
                                                 placeholder='Nhập email của bạn...'
                                                 value={emailFomat}
                                                 onChange={(e) => setEmailFomat(e.target.value)}

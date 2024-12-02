@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './Balance.css'
 import { useState } from 'react';
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const getDate = () => {
   const today = new Date();
@@ -101,7 +101,7 @@ const Balance = () => {
   }
 
   return (
-    <div className='wrapper-banlance'>
+    <div className='wrapper-banlance'><ToastContainer />
       <div className="col-xl-12">
         <div className="container">
           <div className="row">

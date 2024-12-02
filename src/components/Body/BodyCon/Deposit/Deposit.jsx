@@ -3,7 +3,7 @@ import './Deposit.css'
 import { TbAlertTriangleFilled } from "react-icons/tb";
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
 import { WalletContext } from '../../../WalletContext/WalletContext';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const Deposit = () => {
@@ -88,6 +88,7 @@ const Deposit = () => {
 
   return (
     <div className='wrapper-deposit'>
+      <ToastContainer />
       <div className='container'>
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-12 dp-title-head">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './DepositHistory.css';
 import { endpoint, refreshToken } from '../../../../config/apiConfig';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { FaTrash } from 'react-icons/fa6';
 const convertDate = (date) => {
   let split = date.split('-');
@@ -203,6 +203,7 @@ const DepositHistory = () => {
 
   return (
     <div className='wrapper-dp-history'>
+      <ToastContainer />
       <div className="container">
         <div className="row">
           <div className="col-xl-12 col-lg-12 col-md-12">

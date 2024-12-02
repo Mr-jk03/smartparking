@@ -8,7 +8,7 @@ import { FaWallet } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { endpoint, refreshToken } from '../../config/apiConfig';
 import { WalletContext } from '../WalletContext/WalletContext';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const Header = () => {
@@ -73,6 +73,7 @@ const Header = () => {
 
     return (
         <div className='head-wrapper'>
+            <ToastContainer />
             <div className="container">
                 <div className="row">
                     <div className='col-xl-1 col-lg-1 col-md-1 logo'>

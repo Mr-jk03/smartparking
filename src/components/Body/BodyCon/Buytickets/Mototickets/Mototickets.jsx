@@ -3,7 +3,7 @@ import './Mototickets.css';
 import { Link } from 'react-router-dom';
 import { FaMotorcycle } from "react-icons/fa6";
 import { endpoint, refreshToken } from '../../../../../config/apiConfig';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { FaCarSide } from 'react-icons/fa';
 
 const Mototickets = () => {
@@ -40,6 +40,7 @@ const Mototickets = () => {
 
     return (
         <div className='container'>
+            <ToastContainer />
             <div className="row">
                 {lemitedMototicketdata.map((item) =>
                     <div className="col-xl-6" key={item.id}>
