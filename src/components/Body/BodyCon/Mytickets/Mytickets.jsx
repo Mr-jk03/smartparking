@@ -52,6 +52,9 @@ const Mytickets = () => {
               setConcat(true);
             }
           else {
+            if(page === 1){
+              setMyticketData([]);
+            }
             setMaxPage(true)
           }
         } else if (data.code === 5010) {
